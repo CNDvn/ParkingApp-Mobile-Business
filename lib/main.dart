@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:parkingapp_mobile_business/configs/routes/routes.dart';
-import 'package:parkingapp_mobile_business/providers/main_providers/main_provider.dart';
+import 'package:parking_app_mobile_business/configs/routes/routes.dart';
+import 'package:parking_app_mobile_business/providers/main_providers/main_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
