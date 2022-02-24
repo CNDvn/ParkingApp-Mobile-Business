@@ -24,8 +24,9 @@ class NewParkingProvider with ChangeNotifier {
   bool checkParkingName(String value) {
     parkingName.value = value;
     bool flag = true;
-    if (value.isEmpty) {
-      parkingName.error = "Parking name can not empty";
+    if (value.length < 5 && value.length > 200) {
+      parkingName.error =
+          "Parking name must greater 5 and smaller 200 character";
       flag = false;
     } else {
       parkingName.error = null;
@@ -37,8 +38,8 @@ class NewParkingProvider with ChangeNotifier {
   bool checkAddress(String value) {
     address.value = value;
     bool flag = true;
-    if (value.isEmpty) {
-      address.error = "Address can not empty";
+    if (value.length < 5 && value.length > 200) {
+      address.error = "Address invalid";
       flag = false;
     } else {
       address.error = null;
@@ -50,8 +51,8 @@ class NewParkingProvider with ChangeNotifier {
   bool checkHotline(String value) {
     hotline.value = value;
     bool flag = true;
-    if (value.isEmpty) {
-      hotline.error = "Hotline can not empty";
+    if (value.length != 10) {
+      hotline.error = "Hotline invalid";
       flag = false;
     } else {
       hotline.error = null;
@@ -66,21 +67,22 @@ class NewParkingProvider with ChangeNotifier {
     bool flag = true;
     if (value.isEmpty) {
       openTime.error = " ";
-      errorOpenTime = "please enter open time";
+      errorOpenTime = "Please enter open time";
       flag = false;
     } else {
-      if (!openTime.value.isEmpty && !closeTime.value.isEmpty) {
+      if (openTime.value.isNotEmpty && closeTime.value.isNotEmpty) {
         List<String> open = openTime.value.split(":");
         List<String> close = closeTime.value.split(":");
         if (int.parse(close[0]) <= int.parse(open[0]) &&
             int.parse(close[1]) < int.parse(open[1])) {
           openTime.error = " ";
-          errorOpenTime = "open time must be smaller close time";
+          errorOpenTime = "Open time must be smaller close time";
           return false;
         }
+      } else {
+        openTime.error = null;
+        errorOpenTime = "";
       }
-      openTime.error = null;
-      errorOpenTime = "";
     }
     notifyListeners();
     return flag;
@@ -95,7 +97,7 @@ class NewParkingProvider with ChangeNotifier {
       errorCloseTime = "please enter close time";
       flag = false;
     } else {
-      if (!openTime.value.isEmpty && !closeTime.value.isEmpty) {
+      if (openTime.value.isNotEmpty && closeTime.value.isNotEmpty) {
         List<String> open = openTime.value.split(":");
         List<String> close = closeTime.value.split(":");
         if (int.parse(close[0]) <= int.parse(open[0]) &&
