@@ -36,20 +36,20 @@ class ParkingRes {
 
 class Result {
   Result({
-    required this.data,
-    required this.count,
-    required this.currentPage,
-    required this.nextPage,
-    required this.prevPage,
-    required this.lastPage,
+    this.data,
+    this.count,
+    this.currentPage,
+    this.nextPage,
+    this.prevPage,
+    this.lastPage,
   });
 
-  List<Datum> data;
-  int count;
-  int currentPage;
-  int nextPage;
-  dynamic prevPage;
-  int lastPage;
+  List<Datum>? data;
+  int? count;
+  int? currentPage;
+  int? nextPage;
+  dynamic? prevPage;
+  int? lastPage;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
@@ -61,7 +61,7 @@ class Result {
       );
 
   Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
         "count": count,
         "currentPage": currentPage,
         "nextPage": nextPage,

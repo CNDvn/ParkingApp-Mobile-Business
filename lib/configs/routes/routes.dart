@@ -6,8 +6,8 @@ import 'package:parking_app_mobile_business/views/root.dart';
 class Routes {
   static final Map<String, Widget Function(BuildContext)> routes = {
     // "/": (context) => const Root(),
-    "/": (context) => const ParkingManagementPage(),
     // "/parkingManagement": (context) => const ParkingManagementPage(),
     // "/createParking": (context) => const NewParkingPage(),
+    "/": (context) => const ParkingManagementPage(),
   };
 }

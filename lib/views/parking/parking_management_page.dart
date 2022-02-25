@@ -19,10 +19,10 @@ class _ParkingManagementPageState extends State<ParkingManagementPage> {
   void initState() {
     ParkingImpl()
         .getParking(
-            "https://parking-app-project.herokuapp.com/api/v1/parkings?sizePage=5&currentPage=1&sort=ASC")
+            "https://parking-app-project.herokuapp.com/api/v1/parkings?sizePage=500&currentPage=1&sort=ASC")
         .then((value) {
       setState(() {
-        testApi = value.result!.data;
+        testApi = value.result!.data!;
       });
     });
   }
@@ -41,7 +41,7 @@ class _ParkingManagementPageState extends State<ParkingManagementPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+              margin: const EdgeInsets.fromLTRB(0, 50, 0, 0),
               child: Title(
                   color: AppColor.greyBackground,
                   child: Text(
@@ -54,7 +54,6 @@ class _ParkingManagementPageState extends State<ParkingManagementPage> {
               margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
               height: size.height * 0.8,
               child: ListView(
-                
                 children: [
                   for (var item in testApi)
                     CardParking(
