@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:parking_app_mobile_business/repository/impl/parking_rep_impl.dart';
 
 class ValidationItem {
   String value;
@@ -122,7 +125,7 @@ class NewParkingProvider with ChangeNotifier {
     bool isOpenTime = checkOpenTime(openTime.value);
     bool isCloseTime = checkCloseTime(closeTime.value);
     if (isParkingName && isAddress && isHotline && isOpenTime && isCloseTime) {
-      print("qua ai");
+      print("qua lai");
     }
     notifyListeners();
   }

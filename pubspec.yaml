@@ -34,6 +34,12 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   provider: ^6.0.2
+  http: ^0.13.4
+  # call api
+  dio: ^4.0.4
+  #show notifi
+  fluttertoast: ^8.0.8
+  flutter_secure_storage: ^5.0.2
 
 dev_dependencies:
   flutter_test:
