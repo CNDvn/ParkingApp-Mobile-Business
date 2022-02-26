@@ -16,14 +16,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: MainProviders.providers,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Parking App Business',
-        theme: ThemeData(
-          primarySwatch: Colors.blue, fontFamily: "OpenSans"
-        ),
+        theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "OpenSans"),
         initialRoute: "/",
         routes: Routes.routes,
       ),
     );
   }
 }
-
