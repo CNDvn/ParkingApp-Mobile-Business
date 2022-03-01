@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:parkingapp_mobile_business/configs/exception/exception.dart';
-import 'package:parkingapp_mobile_business/providers/view_model/auth.dart';
-import 'package:parkingapp_mobile_business/views/bottomNavigation/bottom_tab_bar.dart';
+import 'package:parking_app_mobile_business/configs/exception/exception.dart';
+import 'package:parking_app_mobile_business/view_model/providers/view_model/auth.dart';
+import 'package:parking_app_mobile_business/views/bottomNavigation/bottom_tab_bar.dart';
 
 class ValidationItem {
   final String? value;
@@ -53,7 +53,7 @@ class SignInProvider with ChangeNotifier {
   void checkPhone(String value) {
     if (value.isEmpty) {
       _phone = ValidationItem(value, "Phone is empty");
-    } else if (value.length < 10) {
+    } else if (value.length < 0) {
       _phone = ValidationItem(value, "Phone must 10 character");
     } else {
       _phone = ValidationItem(value, null);

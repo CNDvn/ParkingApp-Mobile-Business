@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:parkingapp_mobile_business/model/request/sign_in_req.dart';
-import 'package:parkingapp_mobile_business/model/response/sign_in_res.dart';
-import 'package:parkingapp_mobile_business/repository/auth_rep.dart';
+import 'package:parking_app_mobile_business/model/request/sign_in_req.dart';
+import 'package:parking_app_mobile_business/model/response/sign_in_res.dart';
+import 'package:parking_app_mobile_business/repository/auth_rep.dart';
 
 class AuthRepImpl implements AuthRepo {
   @override

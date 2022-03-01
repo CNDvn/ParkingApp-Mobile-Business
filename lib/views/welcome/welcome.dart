@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:parkingapp_mobile_business/configs/themes/app_color.dart';
-import 'package:parkingapp_mobile_business/constants/assets_path.dart';
-import 'package:parkingapp_mobile_business/views/welcome/intro_slider.dart';
+import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
+import 'package:parking_app_mobile_business/constants/assets_path.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);

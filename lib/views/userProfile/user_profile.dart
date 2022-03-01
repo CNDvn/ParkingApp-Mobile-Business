@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:parkingapp_mobile_business/constants/assets_path.dart';
-import 'package:parkingapp_mobile_business/providers/main_providers/user_profile_provider.dart';
-import 'package:parkingapp_mobile_business/widget/button/button.dart';
+import 'package:parking_app_mobile_business/constants/assets_path.dart';
+import 'package:parking_app_mobile_business/view_model/providers/main_providers/user_profile_provider.dart';
+import 'package:parking_app_mobile_business/widget/button/button.dart';
 import 'package:provider/provider.dart';
 
 class UserProfile extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:parkingapp_mobile_business/constants/regex.dart';
+import 'package:parking_app_mobile_business/constants/regex.dart';
 
 class ValidationItem {
   String value;
