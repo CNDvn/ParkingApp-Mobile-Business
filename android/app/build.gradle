@@ -51,6 +51,7 @@ android {
         //handle googlemap
         minSdkVersion 20
         multiDexEnabled true
+        // minSdkVersion flutter.minSdkVersion
         // targetSdkVersion flutter.targetSdkVersion
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
