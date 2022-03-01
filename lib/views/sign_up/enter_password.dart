@@ -14,7 +14,6 @@ class EnterPassword extends StatelessWidget {
         Provider.of<EnterPasswordProvider>(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: AppColor.whiteBackground,
       body: BackGround(
         widgetChild: SingleChildScrollView(

@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:parking_app_mobile_business/repository/impl/parking_rep_impl.dart';
 
 class ValidationItem {
   String value;
