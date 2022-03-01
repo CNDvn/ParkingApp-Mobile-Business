@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:parkingapp_mobile_business/configs/exception/exception.dart';
-import 'package:parkingapp_mobile_business/providers/view_model/auth.dart';
-import 'package:parkingapp_mobile_business/views/bottomNavigation/bottom_tab_bar.dart';
+import 'package:parking_app_mobile_business/configs/exception/exception.dart';
+import 'package:parking_app_mobile_business/view_model/providers/view_model/auth.dart';
+import 'package:parking_app_mobile_business/views/bottomNavigation/bottom_tab_bar.dart';
+import 'package:parking_app_mobile_business/views/parking/parking_management_page.dart';
 
 class ValidationItem {
   final String? value;
@@ -122,7 +123,7 @@ class SignInProvider with ChangeNotifier {
       User? user = await auth.signInWithGoogle();
       if (user != null) {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const BottomTabBar();
+          return const ParkingManagementPage();
         }));
       }
     } on Exception catch (e) {

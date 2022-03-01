@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:parkingapp_mobile_business/configs/exception/show_alert_dialog.dart';
+import 'package:parking_app_mobile_business/configs/exception/show_alert_dialog.dart';
 
 Future<void> showExceptionAlertDialog(
   BuildContext context, {

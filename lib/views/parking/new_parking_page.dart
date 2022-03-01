@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
-import 'package:parking_app_mobile_business/providers/new_parking_provider.dart';
+import 'package:parking_app_mobile_business/view_model/providers/new_parking_provider.dart';
 import 'package:provider/provider.dart';
 
 class NewParkingPage extends StatelessWidget {

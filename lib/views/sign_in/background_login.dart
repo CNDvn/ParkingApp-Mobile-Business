@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:parkingapp_mobile_business/constants/assets_path.dart';
+import 'package:parking_app_mobile_business/constants/assets_path.dart';
 
 class BackGround extends StatelessWidget {
   final Widget widgetChild;

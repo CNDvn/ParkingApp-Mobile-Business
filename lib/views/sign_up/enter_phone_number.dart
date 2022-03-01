@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:parkingapp_mobile_business/configs/themes/app_color.dart';
-import 'package:parkingapp_mobile_business/views/sign_in/background_login.dart';
-import 'package:parkingapp_mobile_business/views/sign_up/enter_verification_code.dart';
-import 'package:parkingapp_mobile_business/widget/button/button.dart';
+import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
+import 'package:parking_app_mobile_business/views/sign_in/background_login.dart';
+import 'package:parking_app_mobile_business/views/sign_up/enter_verification_code.dart';
+import 'package:parking_app_mobile_business/widget/button/button.dart';
 
 class EnterPhoneNumber extends StatelessWidget {
   const EnterPhoneNumber({Key? key}) : super(key: key);

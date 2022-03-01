@@ -1,9 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/routes/routes.dart';
-import 'package:parking_app_mobile_business/providers/main_providers/main_provider.dart';
+import 'package:parking_app_mobile_business/view_model/providers/main_providers/main_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -19,7 +22,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Parking App Business',
         theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "OpenSans"),
-        initialRoute: "/",
         routes: Routes.routes,
       ),
     );

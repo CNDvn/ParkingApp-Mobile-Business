@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:parkingapp_mobile_business/configs/themes/app_color.dart';
-import 'package:parkingapp_mobile_business/configs/themes/app_text_style.dart';
-import 'package:parkingapp_mobile_business/constants/assets_path.dart';
-import 'package:parkingapp_mobile_business/views/userProfile/user_profile.dart';
+import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
+import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
+import 'package:parking_app_mobile_business/constants/assets_path.dart';
+import 'package:parking_app_mobile_business/views/userProfile/user_profile.dart';
 
 
 class DrawerDefault extends StatelessWidget {
