@@ -46,7 +46,7 @@ class SignInPage extends StatelessWidget {
                         errorText: signInProvider.submitValid
                             ? signInProvider.phone.error
                             : null),
-                    keyboardType: TextInputType.phone,
+                    keyboardType: TextInputType.multiline,
                     textInputAction: TextInputAction.next,
                     controller: signInProvider.phoneController,
                     onChanged: (String value) {

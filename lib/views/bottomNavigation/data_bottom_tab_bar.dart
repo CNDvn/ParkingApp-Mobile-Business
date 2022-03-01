@@ -1,13 +1,14 @@
 // import 'package:flutter/material.dart';
-// import 'package:parkingapp_mobile_business/configs/themes/app_color.dart';
+// import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
+// import 'package:parking_app_mobile_business/views/parking/parking_management_page.dart';
 
 // import 'package:provider/provider.dart';
 
 // int currentTab = 0;
 
-// Widget currentScreen = GoogleMap();
+// Widget currentScreen = ParkingManagementPage();
 
-// final List<Widget> screens = [GoogleMap(), Payments(), History(), Setting()];
+// final List<Widget> screens = [ParkingManagementPage()];
 
 // final PageStorageBucket bucket = PageStorageBucket();
 

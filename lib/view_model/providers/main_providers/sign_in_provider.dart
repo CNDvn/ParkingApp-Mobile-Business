@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/exception/exception.dart';
 import 'package:parking_app_mobile_business/view_model/providers/view_model/auth.dart';
 import 'package:parking_app_mobile_business/views/bottomNavigation/bottom_tab_bar.dart';
+import 'package:parking_app_mobile_business/views/parking/parking_management_page.dart';
 
 class ValidationItem {
   final String? value;
@@ -53,7 +54,7 @@ class SignInProvider with ChangeNotifier {
   void checkPhone(String value) {
     if (value.isEmpty) {
       _phone = ValidationItem(value, "Phone is empty");
-    } else if (value.length < 0) {
+    } else if (value.length < 10) {
       _phone = ValidationItem(value, "Phone must 10 character");
     } else {
       _phone = ValidationItem(value, null);
@@ -122,7 +123,7 @@ class SignInProvider with ChangeNotifier {
       User? user = await auth.signInWithGoogle();
       if (user != null) {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const BottomTabBar();
+          return const ParkingManagementPage();
         }));
       }
     } on Exception catch (e) {
