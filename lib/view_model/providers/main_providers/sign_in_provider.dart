@@ -1,8 +1,15 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/exception/exception.dart';
+import 'package:parking_app_mobile_business/configs/toast/toast.dart';
+import 'package:parking_app_mobile_business/model/request/sign_in_req.dart';
+import 'package:parking_app_mobile_business/repository/impl/auth_rep_impl.dart';
+import 'package:parking_app_mobile_business/view_model/providers/url.api/url_api.dart';
 import 'package:parking_app_mobile_business/view_model/providers/view_model/auth.dart';
-import 'package:parking_app_mobile_business/views/bottomNavigation/bottom_tab_bar.dart';
+import 'package:parking_app_mobile_business/view_model/service/service_storage.dart';
+import 'package:parking_app_mobile_business/view_model/service/storage_enum.dart';
 import 'package:parking_app_mobile_business/views/parking/parking_management_page.dart';
 
 class ValidationItem {
@@ -104,9 +111,28 @@ class SignInProvider with ChangeNotifier {
       checkPassword(_password.value ?? "");
       notifyListeners();
     } else if (!submitValid && isValid) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return const BottomTabBar();
-      }));
+      AuthRepImpl()
+          .postSignIn(
+              UrlApi.login,
+              SignInReq(
+                  username: phone.value!,
+                  password: password.value!,
+                  role: "business"))
+          .then((value) async {
+        final SecureStorage secureStorage = SecureStorage();
+        secureStorage.writeSecureData(StorageEnum.accessToken.toShortString(), value.result!.accessToken);
+        secureStorage.writeSecureData(
+            StorageEnum.refreshToken.toShortString(), value.result!.refreshToken);
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return const ParkingManagementPage();
+        }));
+      }).onError(
+        (error, stackTrace) {
+          log(error.toString());
+          showToastFail("login failed");
+          notifyListeners();
+        },
+      );
     }
   }
 

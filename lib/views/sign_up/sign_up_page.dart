@@ -41,7 +41,6 @@ class SignUpPage extends StatelessWidget {
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
-                      prefix: const Text("+84"),
                       suffixIcon: signUpProvider.textPhone.isNotEmpty
                             ? IconButton(
                                 icon: const Icon(Icons.close),

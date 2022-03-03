@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:parking_app_mobile_business/configs/toast/toast.dart';
+import 'package:parking_app_mobile_business/model/request/new_parking_req.dart';
+import 'package:parking_app_mobile_business/repository/impl/New_Parking_rep_impl.dart';
+import 'package:parking_app_mobile_business/view_model/providers/url.api/url_api.dart';
 
 class ValidationItem {
   String value;
@@ -24,7 +28,7 @@ class NewParkingProvider with ChangeNotifier {
   bool checkParkingName(String value) {
     parkingName.value = value;
     bool flag = true;
-    if (value.length < 5 && value.length > 200) {
+    if (value.length < 5 || value.length > 200) {
       parkingName.error =
           "Parking name must greater 5 and smaller 200 character";
       flag = false;
@@ -38,7 +42,7 @@ class NewParkingProvider with ChangeNotifier {
   bool checkAddress(String value) {
     address.value = value;
     bool flag = true;
-    if (value.length < 5 && value.length > 200) {
+    if (value.length < 5 || value.length > 200) {
       address.error = "Address invalid";
       flag = false;
     } else {
@@ -123,7 +127,17 @@ class NewParkingProvider with ChangeNotifier {
     bool isCloseTime = checkCloseTime(closeTime.value);
     if (isParkingName && isAddress && isHotline && isOpenTime && isCloseTime) {
       print("qua lai");
+      final data = NewParkingReq(
+        name: parkingName.value,
+        address: address.value,
+        closeTime: closeTime.value,
+        openTime: openTime.value,
+        phoneNumber: hotline.value,
+      );
+      NewParkingRepImpl().postCreateParking(UrlApi.createParking, data).then((value) => {
+        showToastSuccess(value.result!),
+        
+      });
     }
-    notifyListeners();
   }
 }

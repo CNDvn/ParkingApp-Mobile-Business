@@ -105,8 +105,8 @@ class SignUpProvider with ChangeNotifier {
       case "phone":
         if (value.isEmpty) {
           _phone = ValidationItem(value, "Phone is empty");
-        } else if (value.length < 10) {
-          _phone = ValidationItem(value, "Phone must 10 character ");
+        } else if (value.length < 9) {
+          _phone = ValidationItem(value, "Phone must 9 character ");
         } else {
           _phone = ValidationItem(value, null);
         }
@@ -206,30 +206,25 @@ class SignUpProvider with ChangeNotifier {
       checkValidation(_email.value ?? "", "email");
       checkValidation(_address.value ?? "", "address");
     } else {
-      // final data = SignUpReq(
-      //     firstName: _firstName.value!,
-      //     lastName: _lastName.value!,
-      //     dob: _dobEditController.text.isEmpty
-      //         ? dateFormat.format(_date)
-      //         : _dobEditController.text,
-      //     username: _phone.value!,
-      //     password: _password.value!,
-      //     phoneNumber: "+84" + _phone.value!.substring(1),
-      //     email: _email.value!,
-      //     address: _address.value!,
-      //     avatar: "abc");
-      // SignUpImpl().postSignUp(UrlApi.signupPath, data).then((value) => {
-      //       showToastSuccess(value.result!),
-      //       Navigator.push(
-      //         context,
-      //         MaterialPageRoute(builder: (context) => EnterVerificationCode()),
-      //       )
-      //     });
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => EnterVerificationCode()),
-      );
+      final data = SignUpReq(
+          firstName: _firstName.value!,
+          lastName: _lastName.value!,
+          dob: _dobEditController.text.isEmpty
+              ? dateFormat.format(_date)
+              : _dobEditController.text,
+          username: _phone.value!,
+          password: _password.value!,
+          phoneNumber: "+84" + _phone.value!.substring(1),
+          email: _email.value!,
+          address: _address.value!,
+          avatar: "abc");
+      SignUpImpl().postSignUp(UrlApi.signupPath, data).then((value) => {
+            showToastSuccess(value.result!),
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => EnterVerificationCode()),
+            )
+          });
     }
   }
 }
