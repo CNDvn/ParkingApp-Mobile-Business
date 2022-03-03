@@ -3,7 +3,7 @@ import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
 import 'package:parking_app_mobile_business/constants/assets_path.dart';
 import 'package:parking_app_mobile_business/view_model/providers/main_providers/sign_in_provider.dart';
 import 'package:parking_app_mobile_business/views/sign_in/background_login.dart';
-import 'package:parking_app_mobile_business/views/sign_up/enter_phone_number.dart';
+import 'package:parking_app_mobile_business/views/sign_up/sign_up_page.dart';
 import 'package:parking_app_mobile_business/widget/button/button.dart';
 import 'package:parking_app_mobile_business/widget/button/button_social.dart';
 import 'package:provider/provider.dart';
@@ -146,7 +146,7 @@ class SignInPage extends StatelessWidget {
                           onTap: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return const EnterPhoneNumber();
+                              return const SignUpPage();
                             }));
                           }),
                     ],
