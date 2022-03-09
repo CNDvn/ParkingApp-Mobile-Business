@@ -120,8 +120,8 @@ class SignInProvider with ChangeNotifier {
                   role: "business"))
           .then((value) async {
         final SecureStorage secureStorage = SecureStorage();
-        secureStorage.writeSecureData(StorageEnum.accessToken.toShortString(), value.result!.accessToken);
-        secureStorage.writeSecureData(
+        await secureStorage.writeSecureData(StorageEnum.accessToken.toShortString(), value.result!.accessToken);
+        await secureStorage.writeSecureData(
             StorageEnum.refreshToken.toShortString(), value.result!.refreshToken);
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return const ParkingManagementPage();

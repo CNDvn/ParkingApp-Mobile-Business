@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
 import 'package:parking_app_mobile_business/constants/assets_path.dart';
+import 'package:parking_app_mobile_business/view_model/providers/logout_provider.dart';
 import 'package:parking_app_mobile_business/views/userProfile/user_profile.dart';
+import 'package:provider/provider.dart';
 
 
 class DrawerDefault extends StatelessWidget {
@@ -12,6 +14,8 @@ class DrawerDefault extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LogOutProvider provider =
+        Provider.of<LogOutProvider>(context);
     Size size = MediaQuery.of(context).size;
     double sizeImage = size.width * 0.08;
     return Drawer(
@@ -147,7 +151,7 @@ class DrawerDefault extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w900),
             ),
             onTap: () {
-              log("logout");
+              provider.confirmSignOut(context);
             },
           )
         ],
