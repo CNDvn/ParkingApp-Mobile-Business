@@ -2,6 +2,7 @@ import 'package:parking_app_mobile_business/view_model/providers/main_providers/
 import 'package:parking_app_mobile_business/view_model/providers/main_providers/sign_in_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/main_providers/user_profile_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/new_parking_provider.dart';
+import 'package:parking_app_mobile_business/view_model/providers/parking_detail_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/parking_management_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/sign_up_provider.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,9 @@ class MainProviders {
     ),
     ChangeNotifierProvider<ParkingManagementProvider>(
         create: (context) => ParkingManagementProvider()
+    ),
+    ChangeNotifierProvider<ParkingDetailProvider>(
+        create: (context) => ParkingDetailProvider()
     ),
   ];
 }

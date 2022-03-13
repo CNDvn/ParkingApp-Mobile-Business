@@ -5,6 +5,7 @@ import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
 import 'package:parking_app_mobile_business/repository/impl/parking_rep_impl.dart';
 import 'package:parking_app_mobile_business/view_model/providers/url.api/url_api.dart';
+import 'package:parking_app_mobile_business/views/parking/detail_parking_page.dart';
 import 'package:parking_app_mobile_business/views/parking/new_parking_page.dart';
 import 'package:parking_app_mobile_business/widget/Drawer/drawer.dart';
 import 'package:parking_app_mobile_business/widgets/card_parking.dart';
@@ -94,7 +95,9 @@ class _ParkingManagementPageState extends State<ParkingManagementPage> {
                         fullSlot: "123",
                         openTime: item.openTime,
                         closeTime: item.closeTime,
-                        voidCallbackFn: () => {log(item.name)})
+                        voidCallbackFn: () => {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailParkingPage()))
+                        })
                 ],
               ),
             ),
