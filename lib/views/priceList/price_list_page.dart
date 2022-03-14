@@ -30,7 +30,15 @@ class PriceListPage extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.black),
+          boxShadow: const [
+            BoxShadow(
+                color: Color.fromRGBO(144, 180, 206, 0.5),
+                offset: Offset(0,0),
+                blurRadius: 5,
+                spreadRadius: 0
+                )
+          ],
+          border: Border.all(color: Colors.blue),
           borderRadius: BorderRadius.circular(30)),
       padding: const EdgeInsets.all(15),
       height: size.height,
@@ -51,7 +59,8 @@ class PriceListPage extends StatelessWidget {
                     Container(
                         padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
-                            color: status == 'active' ? Colors.green : Colors.red,
+                            color:
+                                status == 'active' ? Colors.green : Colors.red,
                             borderRadius: BorderRadius.circular(10)),
                         child: Text(
                           status,

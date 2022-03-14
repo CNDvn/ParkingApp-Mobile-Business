@@ -16,12 +16,12 @@ class _PriceListManagementPageState extends State<PriceListManagementPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final List<ListPriceDetail> list1 = [
-      new ListPriceDetail("Xe 4 cho", "20.000"),
-      new ListPriceDetail("Xe 7 cho", "25.000"),
+      new ListPriceDetail("Car 4 seats", "20.000"),
+      new ListPriceDetail("Car 7 seats", "25.000"),
     ];
     final List<ListPriceDetail> list2 = [
-      new ListPriceDetail("Xe 4 cho", "21.000"),
-      new ListPriceDetail("Xe 7 cho", "22.000"),
+      new ListPriceDetail("Car 4 seats", "21.000"),
+      new ListPriceDetail("Car 7 seats", "22.000"),
     ];
     return Scaffold(
         drawer: const DrawerDefault(),
