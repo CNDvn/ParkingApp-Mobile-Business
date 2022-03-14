@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:parking_app_mobile_business/configs/toast/toast.dart';
+import 'package:parking_app_mobile_business/views/priceList/price_list_management_page.dart';
 import 'package:parking_app_mobile_business/widget/Drawer/drawer.dart';
 import 'package:parking_app_mobile_business/widget/button/button.dart';
 
@@ -81,8 +81,20 @@ class _CreatePriceListPageState extends State<CreatePriceListPage> {
                   SizedBox(
                     height: size.height * 0.06,
                     width: size.width * 0.5,
-                    child: const TextField(
-                      decoration: InputDecoration(labelText: 'Amount'),
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: (chooseItems[i].length != 2 || chooseItems[i][1].isEmpty) ? 'Amount':''),
+                      onChanged: (newValue) {
+                        setState(() {
+                          if (chooseItems[i][0].isNotEmpty) {
+                            if (chooseItems[i].length == 1) {
+                              chooseItems[i].add(newValue);
+                            } else {
+                              chooseItems[i][1] = newValue;
+                            }
+                          }
+                        });
+                      },
                     ),
                   )
                 ],
@@ -112,6 +124,7 @@ class _CreatePriceListPageState extends State<CreatePriceListPage> {
               content: 'Add',
               voidCallBack: () {
                 log("Add price list");
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const PriceListManagementPage()));
               },
             ),
           ],

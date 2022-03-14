@@ -41,7 +41,7 @@ class DrawerDefault extends StatelessWidget {
                   backgroundColor: AppColor.whiteBackground,
                 ),
                 TextButton(
-                  child: Text("Meo` 4`", style: AppTextStyles.h2Black),
+                  child: Text("Nguyễn Văn Lâm", style: AppTextStyles.h2Black),
                   onPressed: () {
                     Navigator.push(
                       context,
