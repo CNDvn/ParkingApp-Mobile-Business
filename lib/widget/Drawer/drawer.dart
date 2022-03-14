@@ -65,11 +65,12 @@ class DrawerDefault extends StatelessWidget {
               height: sizeImage,
             ),
             title: const Text(
-              'Payment methods',
+              'Price List',
               style: TextStyle(fontWeight: FontWeight.w900),
             ),
             onTap: () {
               log("choose payment");
+              Navigator.pushReplacementNamed(context, "/PriceListManagementPage");
             },
           ),
           ListTile(

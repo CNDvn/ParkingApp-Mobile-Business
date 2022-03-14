@@ -21,5 +21,6 @@ class Routes {
     "/EnterVerificationCode": (context) => EnterVerificationCode(),
     "/parkingManagement": (context) => const ParkingManagementPage(),
     "/createParking": (context) => const NewParkingPage(),
+    "/PriceListManagementPage": (context) => const PriceListManagementPage(),
   };
 }
