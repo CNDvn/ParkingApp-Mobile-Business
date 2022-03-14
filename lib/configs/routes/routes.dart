@@ -1,3 +1,4 @@
+import 'package:parking_app_mobile_business/views/history/history.dart';
 import 'package:parking_app_mobile_business/views/priceList/create_price_list_page.dart';
 import 'package:parking_app_mobile_business/views/priceList/price_list_management_page.dart';
 import 'package:parking_app_mobile_business/views/sign_in/signIn_page.dart';
@@ -21,5 +22,7 @@ class Routes {
     "/EnterVerificationCode": (context) => EnterVerificationCode(),
     "/parkingManagement": (context) => const ParkingManagementPage(),
     "/createParking": (context) => const NewParkingPage(),
+    "/PriceListManagementPage": (context) => const PriceListManagementPage(),
+    "/History": (context) => const History(),
   };
 }

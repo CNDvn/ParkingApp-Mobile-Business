@@ -31,7 +31,7 @@ class _HistoryState extends State<History> {
                   color: Colors.black87,
                 ),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.popAndPushNamed(context, "/parkingManagement");
                 },
               )),
             ]), // Booking Active
