@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
+import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
 import 'package:parking_app_mobile_business/constants/assets_path.dart';
 import 'package:parking_app_mobile_business/view_model/providers/main_providers/user_profile_provider.dart';
 import 'package:parking_app_mobile_business/widget/Drawer/drawer.dart';
@@ -10,14 +12,13 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     UserProfileProvider provider = Provider.of<UserProfileProvider>(context);
     Size size = MediaQuery.of(context).size;
     double sizeHeightInput = size.height * 0.12;
     return Scaffold(
+      key: scaffoldKey,
       drawer: const DrawerDefault(),
-      appBar: AppBar(
-        title: const Text("User Profile"),
-      ),
       body: SingleChildScrollView(
           child: Container(
         margin:
@@ -26,6 +27,27 @@ class UserProfile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              SizedBox(
+                  child: IconButton(
+                icon: const Icon(
+                  Icons.menu,
+                  color: Colors.black87,
+                ),
+                onPressed: () {
+                  scaffoldKey.currentState!.openDrawer();
+                },
+              )),
+              Title(
+                  color: AppColor.greyBackground,
+                  child: Text(
+                    "User Profile",
+                    style: AppTextStyles.h2Black,
+                  )),
+            ]),
+            SizedBox(
+              height: size.height * 0.05,
+            ),
             Center(
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(100 / 2),
@@ -42,7 +64,7 @@ class UserProfile extends StatelessWidget {
                       errorText: provider.clickButtonFlag
                           ? provider.fullName.error
                           : null),
-                  autofocus: true,
+                  autofocus: false,
                   onEditingComplete: () {
                     provider.nodeEmail.requestFocus();
                   },

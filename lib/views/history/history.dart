@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
+import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
 import 'package:parking_app_mobile_business/views/history/history_detail.dart';
 import 'package:parking_app_mobile_business/widget/Drawer/drawer.dart';
 import 'package:parking_app_mobile_business/widget/card/card_history.dart';
@@ -11,23 +13,40 @@ class History extends StatefulWidget {
 }
 
 class _HistoryState extends State<History> {
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+        key: scaffoldKey,
         drawer: const DrawerDefault(),
-        appBar: AppBar(
-          title: const Text("Parking History"),
-        ),
         body: SingleChildScrollView(
           child: Container(
             margin: EdgeInsets.fromLTRB(
                 0, size.height * 0.05, 0, size.height * 0.05),
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
+                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  SizedBox(
+                      child: IconButton(
+                    icon: const Icon(
+                      Icons.menu,
+                      color: Colors.black87,
+                    ),
+                    onPressed: () {
+                      scaffoldKey.currentState!.openDrawer();
+                    },
+                  )),
+                  Title(
+                      color: AppColor.greyBackground,
+                      child: Text(
+                        "Parking History",
+                        style: AppTextStyles.h2Black,
+                      )),
+                ]),
                 SizedBox(
                   height: size.height * 0.005,
                 ),
