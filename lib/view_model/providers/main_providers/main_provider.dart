@@ -1,3 +1,4 @@
+import 'package:parking_app_mobile_business/view_model/providers/detail_slot_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/logout_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/main_providers/enter_password_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/main_providers/sign_in_provider.dart';
@@ -34,6 +35,9 @@ class MainProviders {
     ),
     ChangeNotifierProvider<ParkingDetailProvider>(
         create: (context) => ParkingDetailProvider()
+    ),
+    ChangeNotifierProvider<DetailSlotProvider>(
+        create: (context) => DetailSlotProvider()
     ),
   ];
 }
