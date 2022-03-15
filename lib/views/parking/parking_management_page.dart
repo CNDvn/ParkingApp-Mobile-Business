@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
@@ -20,9 +19,7 @@ class _ParkingManagementPageState extends State<ParkingManagementPage> {
   var listParking = [];
   @override
   void initState() {
-    ParkingImpl()
-        .getParking(UrlApi.getListMyParking)
-        .then((value) {
+    ParkingImpl().getParking(UrlApi.getListMyParking).then((value) {
       setState(() {
         listParking = value.result!.data!;
       });
@@ -33,7 +30,6 @@ class _ParkingManagementPageState extends State<ParkingManagementPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       key: scaffoldKey,
       drawer: const DrawerDefault(),
@@ -46,7 +42,7 @@ class _ParkingManagementPageState extends State<ParkingManagementPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only( top: 28),
+              padding: const EdgeInsets.only(top: 28),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -75,7 +71,10 @@ class _ParkingManagementPageState extends State<ParkingManagementPage> {
                         color: Colors.black87,
                       ),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const NewParkingPage()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const NewParkingPage()));
                       },
                     )),
                   ]),
@@ -95,8 +94,13 @@ class _ParkingManagementPageState extends State<ParkingManagementPage> {
                         openTime: item.openTime,
                         closeTime: item.closeTime,
                         voidCallbackFn: () => {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailParkingPage()))
-                        })
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailParkingPage(
+                                            parkingID: item.id,
+                                          )))
+                            })
                 ],
               ),
             ),
