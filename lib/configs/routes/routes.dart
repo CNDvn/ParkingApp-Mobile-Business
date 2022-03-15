@@ -9,6 +9,7 @@ import 'package:parking_app_mobile_business/views/userProfile/user_profile.dart'
 import 'package:parking_app_mobile_business/views/parking/new_parking_page.dart';
 import 'package:parking_app_mobile_business/views/parking/parking_management_page.dart';
 import 'package:flutter/material.dart';
+import 'package:parking_app_mobile_business/views/wallet/wallet.dart';
 
 class Routes {
   static final Map<String, Widget Function(BuildContext)> routes = {
@@ -24,5 +25,6 @@ class Routes {
     "/createParking": (context) => const NewParkingPage(),
     "/PriceListManagementPage": (context) => const PriceListManagementPage(),
     "/History": (context) => const History(),
+    "/Wallet": (context) => const Wallet(),
   };
 }

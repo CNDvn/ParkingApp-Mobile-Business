@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
+import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
 import 'package:parking_app_mobile_business/constants/assets_path.dart';
 import 'package:parking_app_mobile_business/widget/Drawer/drawer.dart';
 
@@ -9,8 +10,11 @@ class Wallet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+        key: scaffoldKey,
+        drawer: const DrawerDefault(),
         body: SingleChildScrollView(
             child: Container(
                 margin: EdgeInsets.fromLTRB(
@@ -19,29 +23,28 @@ class Wallet extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                        child: Row(
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Expanded(flex: 2, child: Container()),
-                            Expanded(
-                              flex: 6,
-                              child: Text(
-                                "M Y  W A L L E T",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: AppColor.blueText,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 30,
-                                    height: 1.6),
+                            SizedBox(
+                                child: IconButton(
+                              icon: const Icon(
+                                Icons.menu,
+                                color: Colors.black87,
                               ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Container(),
-                            ),
-                          ],
-                        ),
+                              onPressed: () {
+                                scaffoldKey.currentState!.openDrawer();
+                              },
+                            )),
+                            Title(
+                                color: AppColor.greyBackground,
+                                child: Text(
+                                  "My Wallet",
+                                  style: AppTextStyles.h2Black,
+                                )),
+                          ]),
+                      SizedBox(
+                        height: size.height * 0.05,
                       ),
                       Center(
                           child: ClipRRect(
@@ -63,13 +66,11 @@ class Wallet extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        // decoration: BoxDecoration(
-                        //     border: Border.all(color: Colors.black)),
                         child: SizedBox(
                           height: size.height * 0.08,
                           width: size.width * 0.9,
                           child: Text(
-                            "999999999999" + " VND",
+                            "25.600.789 VND",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: AppColor.blueText,
@@ -132,7 +133,7 @@ class Wallet extends StatelessWidget {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      "24/11 ",
+                                      "24/03 ",
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                           color: AppColor.blueText,

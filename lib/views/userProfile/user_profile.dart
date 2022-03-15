@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
+import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
 import 'package:parking_app_mobile_business/constants/assets_path.dart';
 import 'package:parking_app_mobile_business/view_model/providers/main_providers/user_profile_provider.dart';
+import 'package:parking_app_mobile_business/widget/Drawer/drawer.dart';
 import 'package:parking_app_mobile_business/widget/button/button.dart';
 import 'package:provider/provider.dart';
 
@@ -9,10 +12,13 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     UserProfileProvider provider = Provider.of<UserProfileProvider>(context);
     Size size = MediaQuery.of(context).size;
     double sizeHeightInput = size.height * 0.12;
     return Scaffold(
+      key: scaffoldKey,
+      drawer: const DrawerDefault(),
       body: SingleChildScrollView(
           child: Container(
         margin:
@@ -21,28 +27,26 @@ class UserProfile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-              child: Row(
-                children: [
-                  Expanded(flex: 2, child: Container()),
-                  const Expanded(
-                    flex: 6,
-                    child: Text(
-                      "User Profile",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18,
-                          height: 1.6),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(),
-                  ),
-                ],
-              ),
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              SizedBox(
+                  child: IconButton(
+                icon: const Icon(
+                  Icons.menu,
+                  color: Colors.black87,
+                ),
+                onPressed: () {
+                  scaffoldKey.currentState!.openDrawer();
+                },
+              )),
+              Title(
+                  color: AppColor.greyBackground,
+                  child: Text(
+                    "User Profile",
+                    style: AppTextStyles.h2Black,
+                  )),
+            ]),
+            SizedBox(
+              height: size.height * 0.05,
             ),
             Center(
                 child: ClipRRect(
@@ -60,7 +64,7 @@ class UserProfile extends StatelessWidget {
                       errorText: provider.clickButtonFlag
                           ? provider.fullName.error
                           : null),
-                  autofocus: true,
+                  autofocus: false,
                   onEditingComplete: () {
                     provider.nodeEmail.requestFocus();
                   },
