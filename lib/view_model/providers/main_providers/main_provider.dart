@@ -5,6 +5,7 @@ import 'package:parking_app_mobile_business/view_model/providers/main_providers/
 import 'package:parking_app_mobile_business/view_model/providers/new_parking_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/parking_detail_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/parking_management_provider.dart';
+import 'package:parking_app_mobile_business/view_model/providers/price_list_management_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -34,6 +35,9 @@ class MainProviders {
     ),
     ChangeNotifierProvider<ParkingDetailProvider>(
         create: (context) => ParkingDetailProvider()
+    ),
+    ChangeNotifierProvider<PriceListManagementProvider>(
+        create: (context) => PriceListManagementProvider()
     ),
   ];
 }

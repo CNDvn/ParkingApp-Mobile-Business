@@ -71,31 +71,35 @@ class Result {
 }
 
 class Datum {
-  Datum({
-    required this.id,
-    required this.name,
-    required this.address,
-    required this.openTime,
-    required this.closeTime,
-    required this.status,
-    required this.phoneNumber,
-    required this.business,
-    required this.images,
-    required this.coordinates,
-  });
+    Datum({
+        this.id,
+        this.name,
+        this.address,
+        this.openTime,
+        this.closeTime,
+        this.status,
+        this.phoneNumber,
+        this.business,
+        this.images,
+        this.slotFull,
+        this.slotEmpty,
+        this.coordinates,
+    });
 
-  String id;
-  String name;
-  String address;
-  String openTime;
-  String closeTime;
-  String status;
-  String phoneNumber;
-  Business business;
-  List<Image> images;
-  Coordinates coordinates;
+    String? id;
+    String? name;
+    String? address;
+    String? openTime;
+    String? closeTime;
+    String? status;
+    String? phoneNumber;
+    Business? business;
+    List<Image>? images;
+    int? slotFull;
+    int? slotEmpty;
+    Coordinates? coordinates;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
         name: json["name"],
         address: json["address"],
@@ -105,10 +109,12 @@ class Datum {
         phoneNumber: json["phoneNumber"],
         business: Business.fromJson(json["business"]),
         images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        slotFull: json["slotFull"],
+        slotEmpty: json["slotEmpty"],
         coordinates: Coordinates.fromJson(json["coordinates"]),
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "address": address,
@@ -116,12 +122,13 @@ class Datum {
         "closeTime": closeTime,
         "status": status,
         "phoneNumber": phoneNumber,
-        "business": business.toJson(),
-        "images": List<dynamic>.from(images.map((x) => x.toJson())),
-        "coordinates": coordinates.toJson(),
-      };
+        "business": business?.toJson(),
+        "images": List<dynamic>.from(images!.map((x) => x.toJson())),
+        "slotFull": slotFull,
+        "slotEmpty": slotEmpty,
+        "coordinates": coordinates?.toJson(),
+    };
 }
-
 class Coordinates {
   Coordinates({
     required this.latitude,

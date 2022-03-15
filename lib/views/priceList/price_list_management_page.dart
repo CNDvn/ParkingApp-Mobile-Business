@@ -1,31 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
+import 'package:parking_app_mobile_business/model/response/price_list_management_res.dart';
 import 'package:parking_app_mobile_business/views/priceList/create_price_list_page.dart';
 import 'package:parking_app_mobile_business/views/priceList/price_list_page.dart';
 import 'package:parking_app_mobile_business/widget/Drawer/drawer.dart';
 
-class PriceListManagementPage extends StatefulWidget {
-  const PriceListManagementPage({Key? key}) : super(key: key);
+class PriceListManagementPage extends StatelessWidget {
+  PriceListManagementPage({Key? key, required this.priceLists})
+      : super(key: key);
 
-  @override
-  State<PriceListManagementPage> createState() =>
-      _PriceListManagementPageState();
-}
-
-class _PriceListManagementPageState extends State<PriceListManagementPage> {
+  final List<Result> priceLists;
+  
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final List<ListPriceDetail> list1 = [
-      ListPriceDetail("Car 4 seats", "20.000"),
-      ListPriceDetail("Car 7 seats", "25.000"),
-    ];
-    final List<ListPriceDetail> list2 = [
-      ListPriceDetail("Car 4 seats", "21.000"),
-      ListPriceDetail("Car 7 seats", "22.000"),
-    ];
+    
     return Scaffold(
         key: scaffoldKey,
         drawer: const DrawerDefault(),
@@ -77,26 +68,17 @@ class _PriceListManagementPageState extends State<PriceListManagementPage> {
                 SizedBox(
                   height: size.height * 0.85,
                   child: ListView(scrollDirection: Axis.horizontal, children: [
-                    Container(
-                      margin: EdgeInsets.only(top: size.height * 0.05),
-                      width: size.width,
-                      padding: EdgeInsets.all(size.width * 0.05),
-                      child: PriceListPage(
-                        listPriceDetail: list1,
-                        status: 'active',
-                        namePriceList: "Main Price List",
+                    for(var item in priceLists)
+                      Container(
+                        margin: EdgeInsets.only(top: size.height * 0.05),
+                        width: size.width,
+                        padding: EdgeInsets.all(size.width * 0.05),
+                        child: PriceListPage(
+                          listPriceDetail: item.priceListDetails!,
+                          status: item.status!,
+                          namePriceList: item.name!,
+                        ),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: size.height * 0.05),
-                      width: size.width,
-                      padding: EdgeInsets.all(size.width * 0.05),
-                      child: PriceListPage(
-                        listPriceDetail: list2,
-                        status: 'inActive',
-                        namePriceList: "Price List 8/3",
-                      ),
-                    )
                   ]),
                 ),
               ],
