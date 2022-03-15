@@ -19,4 +19,6 @@ class AssetPath {
   static const String welcomeThree = '$prePath/welcome3.png';
   static const String logoGoogle = '$prePath/google.png';
   static const String logoFacebook = '$prePath/facebook.png';
+  static const String priceList = '$prePath/price_list.png';
+  static const String parkingList = '$prePath/parking_list.png';
 }

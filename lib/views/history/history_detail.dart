@@ -34,7 +34,7 @@ class HistoryDetail extends StatelessWidget {
           child: Container(
         height: size.height,
         margin:
-            EdgeInsets.fromLTRB(0, size.height * 0.005, 0, size.height * 0.005),
+            EdgeInsets.fromLTRB(0, size.height * 0.05, 0, size.height * 0.05),
         padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,26 +51,11 @@ class HistoryDetail extends StatelessWidget {
                 },
               )),
             ]),
-            Row(
-              children: [
-                Expanded(flex: 2, child: Container()),
-                Expanded(
-                  flex: 6,
-                  child: Text(
-                    nPlates,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w700, fontSize: 18, height: 1.6),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Container(),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: size.height * 0.01,
+            Text(
+              nPlates,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  fontWeight: FontWeight.w700, fontSize: 28, height: 1.6),
             ),
             SizedBox(
               height: size.height * 0.3,

@@ -11,6 +11,10 @@ class Wallet extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+        drawer: const DrawerDefault(),
+        appBar: AppBar(
+          title: const Text("Wallet"),
+        ),
         body: SingleChildScrollView(
             child: Container(
                 margin: EdgeInsets.fromLTRB(

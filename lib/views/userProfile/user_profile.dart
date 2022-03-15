@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/constants/assets_path.dart';
 import 'package:parking_app_mobile_business/view_model/providers/main_providers/user_profile_provider.dart';
+import 'package:parking_app_mobile_business/widget/Drawer/drawer.dart';
 import 'package:parking_app_mobile_business/widget/button/button.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,10 @@ class UserProfile extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double sizeHeightInput = size.height * 0.12;
     return Scaffold(
+      drawer: const DrawerDefault(),
+      appBar: AppBar(
+        title: const Text("User Profile"),
+      ),
       body: SingleChildScrollView(
           child: Container(
         margin:
@@ -21,29 +26,6 @@ class UserProfile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-              child: Row(
-                children: [
-                  Expanded(flex: 2, child: Container()),
-                  const Expanded(
-                    flex: 6,
-                    child: Text(
-                      "User Profile",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18,
-                          height: 1.6),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(),
-                  ),
-                ],
-              ),
-            ),
             Center(
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(100 / 2),

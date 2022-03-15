@@ -37,6 +37,18 @@ class _DetailParkingPageState extends State<DetailParkingPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              SizedBox(
+                  child: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.black87,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )),
+            ]),
             Title(
                 color: AppColor.greyBackground,
                 child: Text(
