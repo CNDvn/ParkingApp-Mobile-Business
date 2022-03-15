@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
 import 'package:parking_app_mobile_business/constants/assets_path.dart';
+import 'package:parking_app_mobile_business/repository/impl/users_rep_impl.dart';
 import 'package:parking_app_mobile_business/view_model/providers/logout_provider.dart';
+import 'package:parking_app_mobile_business/view_model/providers/url.api/url_api.dart';
+import 'package:parking_app_mobile_business/view_model/providers/user_profile_provider.dart';
+import 'package:parking_app_mobile_business/view_model/service/service_storage.dart';
+import 'package:parking_app_mobile_business/view_model/service/storage_enum.dart';
 import 'package:parking_app_mobile_business/views/userProfile/user_profile.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +18,10 @@ class DrawerDefault extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SecureStorage secureStorage = SecureStorage();
     LogOutProvider provider = Provider.of<LogOutProvider>(context);
+    UserProfileProvider userProfileprovider =
+        Provider.of<UserProfileProvider>(context);
     Size size = MediaQuery.of(context).size;
     double sizeImage = size.width * 0.08;
     return Drawer(
@@ -39,12 +47,25 @@ class DrawerDefault extends StatelessWidget {
                   radius: size.width * 0.1,
                   //backgroundImage:
                   //const NetworkImage(AssetPath.profilePhoto)
-                  child: Image.asset(AssetPath.profilePhoto),
+                  child: userProfileprovider.avatarSto != null
+                      ? Image.network(userProfileprovider.avatarSto!)
+                      : Image.asset(AssetPath.defaultAvatar),
                   backgroundColor: AppColor.whiteBackground,
                 ),
                 TextButton(
-                  child: Text("Nguyễn Văn Lâm", style: AppTextStyles.h2Black),
-                  onPressed: () {
+                 child: Text(
+                      userProfileprovider.fullNameSto != null
+                          ? userProfileprovider.fullNameSto!
+                          : "Meo` 4`",
+                      style: AppTextStyles.h2Black),
+                  onPressed: () async {
+                    // final token = await secureStorage.readSecureData(
+                    //     StorageEnum.accessToken.toShortString());
+                    // await UsersRepImpl()
+                    //     .getUsersMe(UrlApi.usersPath + "/me", token)
+                    //     .then((value) async {
+                    //   userProfileprovider.getProfile();
+                    // });
                     Navigator.push(
                       context,
                       MaterialPageRoute(

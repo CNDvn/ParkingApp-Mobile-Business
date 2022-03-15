@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:parking_app_mobile_business/configs/toast/toast.dart';
 import 'package:parking_app_mobile_business/model/request/sign_up_req.dart';
 import 'package:parking_app_mobile_business/repository/impl/signup_rep_impl.dart';
-import 'package:parking_app_mobile_business/view_model/providers/main_providers/sign_in_provider.dart';
+import 'package:parking_app_mobile_business/view_model/providers/sign_in_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/url.api/url_api.dart';
 import 'package:parking_app_mobile_business/views/sign_up/enter_verification_code.dart';
 
