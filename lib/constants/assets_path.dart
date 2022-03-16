@@ -21,4 +21,5 @@ class AssetPath {
   static const String logoFacebook = '$prePath/facebook.png';
   static const String priceList = '$prePath/price_list.png';
   static const String parkingList = '$prePath/parking_list.png';
+  static const String defaultAvatar = '$prePath/default_avatar.png';
 }

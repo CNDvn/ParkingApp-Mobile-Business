@@ -25,6 +25,6 @@ class Routes {
     "/createParking": (context) => const NewParkingPage(),
     // "/PriceListManagementPage": (context) => const PriceListManagementPage(),
     "/History": (context) => const History(),
-    "/Wallet": (context) => const Wallet(),
+    "/Wallet": (context) => Wallet(),
   };
 }

@@ -1,15 +1,16 @@
-
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
+import 'package:parking_app_mobile_business/repository/impl/price_list_management_impl.dart';
 import 'package:parking_app_mobile_business/view_model/providers/parking_detail_provider.dart';
+import 'package:parking_app_mobile_business/view_model/providers/url.api/url_api.dart';
+import 'package:parking_app_mobile_business/views/ListParkingSlot/list_parking_slot.dart';
+import 'package:parking_app_mobile_business/views/priceList/price_list_management_page.dart';
 import 'package:provider/provider.dart';
 
 class DetailParkingPage extends StatefulWidget {
-  const DetailParkingPage({Key? key}) : super(key: key);
-
+   DetailParkingPage({Key? key,required this.parkingID}) : super(key: key);
+  String parkingID;
   @override
   State<DetailParkingPage> createState() => _DetailParkingPageState();
 }
@@ -191,164 +192,55 @@ class _DetailParkingPageState extends State<DetailParkingPage> {
                     ),
                   ],
                 )),
-
-const MyDrownListSeat(),
-const MyDrownListLocation(),
-            // Padding(padding: EdgeInsets.only(top: size.height * 0.09)),
-            // SizedBox(
-            //   child: Text(
-            //     provider.errorOpenTime + "\n" + provider.errorCloseTime,
-            //     style: const TextStyle(color: Colors.red),
-            //   ),
-            // ),
-            
-            // Padding(padding: EdgeInsets.only(top: size.height * 0.1)),
-            // SizedBox(
-            //     height: size.height * 0.06,
-            //     width: size.width * 0.5,
-            //     child: ElevatedButton(
-            //       child: const Text("Update Parking"),
-            //       onPressed: () => {provider.submit()},
-            //     ))
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            TextButton(
+            style: ButtonStyle(
+            overlayColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.focused))
+                return Colors.red;
+                if (states.contains(MaterialState.hovered))
+                 return Colors.green;
+             return null; // Defer to the widget's default.
+             }),
+          ),
+          onPressed: () { 
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ListParkingSlot(parkingID: widget.parkingID),));
+          },
+            child: Text('View List Slot'),
+          ),
+            TextButton(
+            style: ButtonStyle(
+            overlayColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.focused))
+                return Colors.red;
+                if (states.contains(MaterialState.hovered))
+                 return Colors.green;
+             return null; // Defer to the widget's default.
+             }),
+          ),
+          onPressed: () { 
+            PriceListManagementImpl()
+            .getAllPriceListByParking(UrlApi.getPriceList, widget.parkingID)
+            .then((value){
+              Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PriceListManagementPage(priceLists: value.result!),
+              ));
+            });
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => ListParkingSlot(parkingID: widget.parkingID),));
+          },
+            child: Text('View Price List'),
+          ),
+          ],
+        )
           ],
         ),
       ),
     ));
   }
-}
-class MyDrownListSeat extends StatefulWidget {
-  const MyDrownListSeat({Key? key}) : super(key: key);
-  @override
-  State<MyDrownListSeat> createState() => _MyDrownListSeatState();
-}
-
-class MyDrownListLocation extends StatefulWidget {
-  const MyDrownListLocation({Key? key}) : super(key: key);
-  @override
-  State<MyDrownListLocation> createState() => _MyDrownListLocationState();
-}
-
-
-class _MyDrownListSeatState extends State<MyDrownListSeat> {
-  List<Seat> seats = [Seat("Seat 4", 4000), Seat("Seat 7", 5000), Seat("Seat 11", 8000)];
-    Seat? dropdownValue;
-    
-    @override
-      void initState() {
-         dropdownValue = seats[0];
-      }
-
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return  SizedBox(
-                height: size.height * 0.12,
-                width: size.width * 0.9,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-              child: Container(
-                width: 150,
-                // margin: EdgeInsets.all(16),
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.black, width: 0),
-                ),
-                child: DropdownButton<Seat>(
-                    value: dropdownValue,
-                    onChanged: (Seat? newValue) {
-                      setState(() {
-                        dropdownValue = newValue!;
-                        log(newValue.seatID);
-                      });
-                    },
-                    items: seats.map((Seat seat) {
-                      return DropdownMenuItem<Seat>(
-                        value: seat,
-                        child: Text(seat.seatID),
-                      );
-                    }).toList(),
-              ),
-              ),
-            ),
-            Container(
-                      margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                      height: size.height * 0.12,
-                      width: size.width * 0.3,
-                      child: Text(dropdownValue!.price.toString())         
-                      ),
-            ]));
-   
-  }
-}
-
-class _MyDrownListLocationState extends State<MyDrownListLocation> {
-  List<Location> locations = [Location("LM-1", "empty"), Location("LM-2", "full"), Location("LM-3", "empty")];
-    Location? dropdownValue;
-    
-    @override
-      void initState() {
-         dropdownValue = locations[0];
-      }
-
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return  SizedBox(
-                height: size.height * 0.12,
-                width: size.width * 0.9,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-              child: Container(
-                width: 150,
-                // margin: EdgeInsets.all(16),
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.black, width: 0),
-                ),
-                child: DropdownButton<Location>(
-                    value: dropdownValue,
-                    onChanged: (Location? newValue) {
-                      setState(() {
-                        dropdownValue = newValue!;
-                        log(newValue.locationID);
-                      });
-                    },
-                    items: locations.map((Location location) {
-                      return DropdownMenuItem<Location>(
-                        value: location,
-                        child: Text(location.locationID),
-                      );
-                    }).toList(),
-              ),
-              ),
-            ),
-            Container(
-                      margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                      height: size.height * 0.12,
-                      width: size.width * 0.3,
-                      child: Text(dropdownValue!.status.toString())         
-                      ),
-            ]));
-   
-  }
-}
-
-class Seat {
-  late String seatID;
-  late double price;
-  Seat(this.seatID, this.price);
-}
-
-class Location {
-  late String locationID;
-  late String status;
-  Location(this.locationID, this.status);
 }
