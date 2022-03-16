@@ -6,10 +6,10 @@ import 'dart:convert';
 
 import 'package:parking_app_mobile_business/model/response/parking_res.dart';
 
-PriceListManagementRes PriceListManagementResFromJson(String str) =>
+PriceListManagementRes priceListManagementResFromJson(String str) =>
     PriceListManagementRes.fromJson(json.decode(str));
 
-String PriceListManagementResToJson(PriceListManagementRes data) =>
+String priceListManagementResToJson(PriceListManagementRes data) =>
     json.encode(data.toJson());
 
 class PriceListManagementRes {
@@ -33,7 +33,7 @@ class PriceListManagementRes {
         "statusCode": statusCode,
       };
 
-  static PriceListManagementRes PriceListManagementResFromJson(String str) =>
+  static PriceListManagementRes priceListManagementResFromJson(String str) =>
       PriceListManagementRes.fromJson(json.decode(str));
   String parkingResToJson(ParkingRes data) => json.encode(data.toJson());
 }

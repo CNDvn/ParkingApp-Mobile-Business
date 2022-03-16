@@ -1,3 +1,4 @@
+import 'package:parking_app_mobile_business/view_model/providers/create_price_list_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/logout_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/main_providers/enter_password_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/main_providers/sign_in_provider.dart';
@@ -38,6 +39,9 @@ class MainProviders {
     ),
     ChangeNotifierProvider<PriceListManagementProvider>(
         create: (context) => PriceListManagementProvider()
+    ),
+    ChangeNotifierProvider<CreatePriceListProvider>(
+        create: (context) => CreatePriceListProvider()
     ),
   ];
 }

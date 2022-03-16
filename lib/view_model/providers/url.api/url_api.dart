@@ -9,4 +9,5 @@ class UrlApi {
   static const createParking = '$serverPath/parkings';
   static const String logoutPath = '@serverPath/logout';
   static const String getPriceList = '$serverPath/price-lists';
+  static const String getAllTypeCar = '$serverPath/type-cars';
 }

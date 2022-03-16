@@ -20,7 +20,7 @@ class PriceListManagementImpl implements PriceListManagementRepo {
           options: Options(headers: {
             HttpHeaders.authorizationHeader: 'Bearer $accessToken'
           }));
-      result = PriceListManagementRes.PriceListManagementResFromJson(
+      result = PriceListManagementRes.priceListManagementResFromJson(
           jsonEncode(response.data));
     } on DioError catch (e) {
       showToastFail(e.response?.data['message']);
