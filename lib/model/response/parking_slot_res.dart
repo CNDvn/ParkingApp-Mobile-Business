@@ -58,7 +58,7 @@ class Result {
       );
 
   Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
         "count": count,
         "currentPage": currentPage,
         "nextPage": nextPage,

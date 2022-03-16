@@ -6,11 +6,14 @@ import 'package:parking_app_mobile_business/configs/exception/exception.dart';
 import 'package:parking_app_mobile_business/configs/toast/toast.dart';
 import 'package:parking_app_mobile_business/model/request/sign_in_req.dart';
 import 'package:parking_app_mobile_business/repository/impl/auth_rep_impl.dart';
+import 'package:parking_app_mobile_business/repository/impl/users_rep_impl.dart';
 import 'package:parking_app_mobile_business/view_model/providers/url.api/url_api.dart';
+import 'package:parking_app_mobile_business/view_model/providers/user_profile_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/view_model/auth.dart';
 import 'package:parking_app_mobile_business/view_model/service/service_storage.dart';
 import 'package:parking_app_mobile_business/view_model/service/storage_enum.dart';
 import 'package:parking_app_mobile_business/views/parking/parking_management_page.dart';
+import 'package:provider/provider.dart';
 
 class ValidationItem {
   final String? value;
@@ -101,6 +104,8 @@ class SignInProvider with ChangeNotifier {
   }
 
   void submitData(BuildContext context) {
+    UserProfileProvider userProfileprovider =
+        Provider.of<UserProfileProvider>(context, listen: false);
     submitValid = _phone.error != null ||
         _password.error != null ||
         _phone.value == null ||
@@ -120,9 +125,18 @@ class SignInProvider with ChangeNotifier {
                   role: "business"))
           .then((value) async {
         final SecureStorage secureStorage = SecureStorage();
-        await secureStorage.writeSecureData(StorageEnum.accessToken.toShortString(), value.result!.accessToken);
         await secureStorage.writeSecureData(
-            StorageEnum.refreshToken.toShortString(), value.result!.refreshToken);
+            StorageEnum.accessToken.toShortString(), value.result!.accessToken);
+        await secureStorage.writeSecureData(
+            StorageEnum.refreshToken.toShortString(),
+            value.result!.refreshToken);
+        final token = await secureStorage
+            .readSecureData(StorageEnum.accessToken.toShortString());
+        await UsersRepImpl()
+            .getUsersMe(UrlApi.usersPath + "/me", token)
+            .then((value) async {
+          userProfileprovider.getProfile();
+        });
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return const ParkingManagementPage();
         }));
