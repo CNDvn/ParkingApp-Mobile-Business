@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
 import 'package:parking_app_mobile_business/constants/assets_path.dart';
-import 'package:parking_app_mobile_business/view_model/providers/main_providers/sign_in_provider.dart';
+import 'package:parking_app_mobile_business/view_model/providers/sign_in_provider.dart';
 import 'package:parking_app_mobile_business/views/sign_in/background_login.dart';
 import 'package:parking_app_mobile_business/views/sign_up/sign_up_page.dart';
 import 'package:parking_app_mobile_business/widget/button/button.dart';
@@ -14,7 +14,7 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    SignInProvider signInProvider = Provider.of<SignInProvider>(context);
+    SignInProvider signInProvider = Provider.of<SignInProvider>(context, listen: false);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: BackGround(
