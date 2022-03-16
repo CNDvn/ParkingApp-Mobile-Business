@@ -7,5 +7,6 @@ class UrlApi {
       '$serverPath/parkings/OwnerParking?sizePage=500&currentPage=1&sort=ASC';
   static const String login = '$serverPath/auths/login';
   static const createParking = '$serverPath/parkings';
-  static const String logoutPath = '@serverPath/logout';
+  static const String logoutPath = '$serverPath/auths/logout';
+  static const String walletPath = '$serverPath/wallets/me';
 }
