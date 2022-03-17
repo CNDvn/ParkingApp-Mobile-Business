@@ -232,16 +232,16 @@ class _NewParkingPageState extends State<NewParkingPage> {
                 ),
                 ),
                 SizedBox(
-                  height: size.height * 0.15,
+                  height: size.height * 0.2,
                 width: size.width * 0.9,
                   child: UploadImage(
                 widget:Container(
                   decoration: BoxDecoration(
                   border: Border.all(color: AppColor.blackText)
                 ),                
-                  height: size.height * 0.05,
+                  height: size.height * 0.08,
                   width: size.width,
-                  child:const Text("Image Parking",textAlign: TextAlign.center,)
+                  child:const Text("Choose Image Parking",textAlign: TextAlign.center,)
                 ),
                 pickImage: (a){},
                 removeImage: () {
@@ -249,38 +249,46 @@ class _NewParkingPageState extends State<NewParkingPage> {
                 ),
                 SizedBox(
                 height: size.height * 0.3,
-                width: size.width * 0.9,
+                width: size.width,
                 child: 
-                Column(children: <Widget>[  
-                const Center(  
-                  child: Text(  
-                    'Price-List',  
-                  )),  
-                DataTable( 
-                columns: const[  
-                 DataColumn(label: Text(  
-                      'Type Car',
-                  )),  
-                  DataColumn(label: Text(  
-                      'Price/Hour',  
-                  )),  
-                ],  
-                rows: const[  
-                  DataRow(cells: [  
-                    DataCell(TextField()),  
-                    DataCell(TextField()),  
-                  ]),  
-                  DataRow(cells: [  
-                    DataCell(TextField()),  
-                    DataCell(TextField()),  
-                  ]),  
-                  DataRow(cells: [  
-                    DataCell(TextField()),  
-                    DataCell(TextField()),  
-                  ]),  
-                ],  
-                ),  
-                        ]) 
+                SingleChildScrollView(
+                  child: Column(children: <Widget>[  
+                   Center(  
+                    child: Text(  
+                      'Price-List',style: AppTextStyles.h2Black,  
+                    )),  
+                  DataTable( 
+                  columns: const[  
+                   DataColumn(label: Text(  
+                        'Type Car',
+                    )),
+                    DataColumn(label: Text(  
+                        '',
+                    )),   
+                    DataColumn(label: Text(  
+                        'Price/Hour',  
+                    )),  
+                  ],  
+                  rows: [  
+                    DataRow(cells: [
+                      DataCell(TextField()),
+                      DataCell(Text("SEATS")),
+                      const DataCell(TextField()),  
+                    ]),  
+                    DataRow(cells: [  
+                      DataCell(TextField()),
+                      DataCell(Text("SEATS")),
+                      const DataCell(TextField()),  
+                    ]),  
+                    DataRow(cells: [  
+                      DataCell(TextField()),
+                      DataCell(Text("SEATS")),
+                      const DataCell(TextField()),  
+                    ]),  
+                  ],  
+                  ),  
+                          ]),
+                ) 
                 ),
                 SizedBox(
                   height: size.height*0.01,

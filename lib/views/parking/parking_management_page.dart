@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
 import 'package:parking_app_mobile_business/repository/impl/parking_rep_impl.dart';
+import 'package:parking_app_mobile_business/view_model/providers/new_parking_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/url.api/url_api.dart';
 import 'package:parking_app_mobile_business/views/parking/detail_parking_page.dart';
 import 'package:parking_app_mobile_business/views/parking/new_parking_page.dart';
 import 'package:parking_app_mobile_business/widget/Drawer/drawer.dart';
 import 'package:parking_app_mobile_business/widget/card/card_parking.dart';
+import 'package:provider/provider.dart';
 
 class ParkingManagementPage extends StatefulWidget {
   const ParkingManagementPage({Key? key}) : super(key: key);
@@ -30,6 +33,7 @@ class _ParkingManagementPageState extends State<ParkingManagementPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    NewParkingProvider provider = Provider.of<NewParkingProvider>(context);
     return Scaffold(
       key: scaffoldKey,
       drawer: const DrawerDefault(),
@@ -71,6 +75,7 @@ class _ParkingManagementPageState extends State<ParkingManagementPage> {
                         color: Colors.black87,
                       ),
                       onPressed: () {
+                        provider.mapController = MapController();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
