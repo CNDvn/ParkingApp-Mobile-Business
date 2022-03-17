@@ -1,13 +1,48 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:geocoder/geocoder.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:parking_app_mobile_business/configs/toast/toast.dart';
 import 'package:parking_app_mobile_business/model/request/new_parking_req.dart';
 import 'package:parking_app_mobile_business/repository/impl/New_Parking_rep_impl.dart';
 import 'package:parking_app_mobile_business/view_model/providers/url.api/url_api.dart';
+import 'package:http/http.dart' as http;
+
+const String apiKey =
+    '5b3ce3597851110001cf62480a3c8b8ff5eb4d889ea0af6dd8059502';
 
 class ValidationItem {
   String value;
   String? error;
   ValidationItem(this.value, this.error);
+}
+
+class GetLocal {
+  GetLocal({required this.address});
+  final String address;
+
+  String url = 'https://api.openrouteservice.org/geocode/search';
+
+  Future getData() async {
+    http.Response response =
+        await http.get(Uri.parse('$url?api_key=$apiKey&text=$address&size=1'));
+
+    if (response.statusCode == 200) {
+      String data = response.body;
+      return jsonDecode(data);
+    } else {
+      log(response.statusCode.toString());
+    }
+  }
+}
+
+class LineString {
+  LineString(this.lineString);
+  List<dynamic> lineString;
 }
 
 class NewParkingProvider with ChangeNotifier {
@@ -24,6 +59,9 @@ class NewParkingProvider with ChangeNotifier {
   FocusNode nodeCloseTime = FocusNode();
 
   bool clickButtonFlag = false;
+  var point = LatLng(10.794862, 106.721784);
+  MapController mapController = MapController();
+  List<Address> location = [];
 
   bool checkParkingName(String value) {
     parkingName.value = value;
@@ -50,6 +88,25 @@ class NewParkingProvider with ChangeNotifier {
     }
     notifyListeners();
     return flag;
+  }
+
+  void getJsonData() async {
+    GetLocal local = GetLocal(address: address.value);
+
+    try {
+      // ignore: prefer_typing_uninitialized_variables
+      var data1;
+      data1 = await local.getData();
+      LineString ls_1 =
+          LineString(data1['features'][0]['geometry']['coordinates']);
+      point = LatLng(ls_1.lineString[1], ls_1.lineString[0]);
+      Future.delayed(const Duration(milliseconds: 50), () {
+        mapController.move(point, 16.5);
+      });
+    } catch (e) {
+      log(e.toString());
+    }
+    notifyListeners();
   }
 
   bool checkHotline(String value) {
@@ -118,7 +175,15 @@ class NewParkingProvider with ChangeNotifier {
     return flag;
   }
 
-  void submit() {
+  cleanAll() {
+    parkingName = ValidationItem("", null);
+    address = ValidationItem("", null);
+    hotline = ValidationItem("", null);
+    openTime = ValidationItem("", null);
+    closeTime = ValidationItem("", null);
+  }
+
+  void submit(BuildContext context) {
     clickButtonFlag = true;
     bool isParkingName = checkParkingName(parkingName.value);
     bool isAddress = checkAddress(address.value);
@@ -126,18 +191,23 @@ class NewParkingProvider with ChangeNotifier {
     bool isOpenTime = checkOpenTime(openTime.value);
     bool isCloseTime = checkCloseTime(closeTime.value);
     if (isParkingName && isAddress && isHotline && isOpenTime && isCloseTime) {
-      print("qua lai");
       final data = NewParkingReq(
-        name: parkingName.value,
-        address: address.value,
-        closeTime: closeTime.value,
-        openTime: openTime.value,
-        phoneNumber: hotline.value,
-      );
-      NewParkingRepImpl().postCreateParking(UrlApi.createParking, data).then((value) => {
-        showToastSuccess(value.result!),
-        
-      });
+          name: parkingName.value,
+          address: address.value,
+          closeTime: closeTime.value,
+          openTime: openTime.value,
+          phoneNumber: "+84" + hotline.value.substring(1),
+          coordinate: Coordinate(
+            latitude: point.latitude,
+            longitude: point.longitude,
+          ));
+      NewParkingRepImpl()
+          .postCreateParking(UrlApi.createParking, data)
+          .then((value) => {
+                showToastSuccess(value.result!),
+                cleanAll(),
+                Navigator.pushReplacementNamed(context, "/parkingManagement")
+              });
     }
   }
 }
