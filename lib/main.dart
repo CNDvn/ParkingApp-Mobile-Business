@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/routes/routes.dart';
@@ -11,7 +12,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
   // This widget is the root of your application.
   @override

@@ -204,7 +204,13 @@ class _DetailParkingPageState extends State<DetailParkingPage> {
             Navigator.push(context, MaterialPageRoute(builder: (context) => ListParkingSlot(parkingID: widget.parkingID),));
           },
             child: Text('View List Slot'),
-          )
+          ),
+          TextButton(onPressed: (){
+            Navigator.pushReplacementNamed(context, "/ManagerPriceList");
+          }, child: Text("View List Prices")),
+          TextButton(onPressed: (){
+            Navigator.pushReplacementNamed(context, "/History");
+          }, child: Text("View History"))
           ],
         ),
       ),

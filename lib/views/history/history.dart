@@ -18,8 +18,6 @@ class _HistoryState extends State<History> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        key: scaffoldKey,
-        drawer: const DrawerDefault(),
         body: SingleChildScrollView(
           child: Container(
             margin: EdgeInsets.fromLTRB(
@@ -33,11 +31,11 @@ class _HistoryState extends State<History> {
                   SizedBox(
                       child: IconButton(
                     icon: const Icon(
-                      Icons.menu,
+                      Icons.arrow_back,
                       color: Colors.black87,
                     ),
                     onPressed: () {
-                      scaffoldKey.currentState!.openDrawer();
+                      Navigator.pop(context);
                     },
                   )),
                   Title(
@@ -55,7 +53,7 @@ class _HistoryState extends State<History> {
                     nPlates: '99A-641.92',
                     brand: 'Vinfast',
                     nameParking: 'Landmark 81',
-                    locationName: 'LM-11',
+                    locationName: 'A-1',
                     voidCallBack: () {
                       Navigator.push(
                         context,
@@ -65,7 +63,7 @@ class _HistoryState extends State<History> {
                                 imageUrl:
                                     'https://i.ibb.co/680hDsW/72dddc373199.jpg',
                                 nameParking: 'Landmark 81',
-                                locationName: 'LM-11',
+                                locationName: 'A-1',
                                 startTime: '10:28',
                                 checkIn: '11:02',
                                 checkOut: '15:23',
@@ -77,7 +75,7 @@ class _HistoryState extends State<History> {
                 CardHistory(
                     imageUrl: 'https://i.ibb.co/QKY26kC/c53173e1522f.jpg',
                     nPlates: '89A-673.84',
-                    brand: 'Vinfast',
+                    brand: 'VinFast',
                     nameParking: 'Giga Mall Thủ Đức',
                     locationName: 'GM-5',
                     voidCallBack: () {

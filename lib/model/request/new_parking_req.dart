@@ -3,6 +3,7 @@
 //     final newParkingReq = newParkingReqFromJson(jsonString);
 
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:parking_app_mobile_business/model/response/new_parking_res.dart';
 
@@ -58,8 +59,8 @@ class Coordinate {
     this.longitude,
   });
 
-  String? latitude;
-  String? longitude;
+  double? latitude;
+  double? longitude;
 
   factory Coordinate.fromJson(Map<String, dynamic> json) => Coordinate(
         latitude: json["latitude"],

@@ -4,12 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
 import 'package:parking_app_mobile_business/constants/assets_path.dart';
-import 'package:parking_app_mobile_business/repository/impl/users_rep_impl.dart';
 import 'package:parking_app_mobile_business/view_model/providers/logout_provider.dart';
-import 'package:parking_app_mobile_business/view_model/providers/url.api/url_api.dart';
 import 'package:parking_app_mobile_business/view_model/providers/user_profile_provider.dart';
-import 'package:parking_app_mobile_business/view_model/service/service_storage.dart';
-import 'package:parking_app_mobile_business/view_model/service/storage_enum.dart';
+// import 'package:parking_app_mobile_business/view_model/service/service_storage.dart';
 import 'package:parking_app_mobile_business/views/userProfile/user_profile.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +15,7 @@ class DrawerDefault extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SecureStorage secureStorage = SecureStorage();
+    // final SecureStorage secureStorage = SecureStorage();
     LogOutProvider provider = Provider.of<LogOutProvider>(context);
     UserProfileProvider userProfileprovider =
         Provider.of<UserProfileProvider>(context);
@@ -45,18 +42,16 @@ class DrawerDefault extends StatelessWidget {
                 ),
                 CircleAvatar(
                   radius: size.width * 0.1,
-                  //backgroundImage:
-                  //const NetworkImage(AssetPath.profilePhoto)
                   child: userProfileprovider.avatarSto != null
                       ? Image.network(userProfileprovider.avatarSto!)
                       : Image.asset(AssetPath.defaultAvatar),
                   backgroundColor: AppColor.whiteBackground,
                 ),
                 TextButton(
-                 child: Text(
+                  child: Text(
                       userProfileprovider.fullNameSto != null
                           ? userProfileprovider.fullNameSto!
-                          : "Meo` 4`",
+                          : "Đức Hiếu",
                       style: AppTextStyles.h2Black),
                   onPressed: () async {
                     // final token = await secureStorage.readSecureData(
@@ -95,46 +90,23 @@ class DrawerDefault extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Image.asset(
-              AssetPath.priceList,
-              width: sizeImage,
-              height: sizeImage,
-            ),
+            leading: const Icon(Icons.qr_code),
             title: const Text(
-              'Price List',
+              'QR Code',
               style: TextStyle(fontWeight: FontWeight.w900),
             ),
             onTap: () {
-              Navigator.pushReplacementNamed(
-                  context, "/PriceListManagementPage");
+              Navigator.pushReplacementNamed(context, "/QRCodeMyParking");
             },
           ),
           ListTile(
-            leading: Image.asset(
-              AssetPath.creditCardPayment,
-              width: sizeImage,
-              height: sizeImage,
-            ),
+            leading: const Icon(Icons.qr_code_scanner),
             title: const Text(
-              'Wallet',
+              'QR Scan',
               style: TextStyle(fontWeight: FontWeight.w900),
             ),
             onTap: () {
-              Navigator.pushReplacementNamed(context, "/Wallet");
-            },
-          ),
-          ListTile(
-            leading: Image.asset(
-              AssetPath.history,
-              width: sizeImage,
-              height: sizeImage,
-            ),
-            title: const Text(
-              'Parking History',
-              style: TextStyle(fontWeight: FontWeight.w900),
-            ),
-            onTap: () {
-              Navigator.pushReplacementNamed(context, "/History");
+              Navigator.pushReplacementNamed(context, "/QRCodePage");
             },
           ),
           ListTile(

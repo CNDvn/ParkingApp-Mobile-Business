@@ -27,8 +27,6 @@ class _PriceListManagementPageState extends State<PriceListManagementPage> {
       ListPriceDetail("Car 7 seats", "22.000"),
     ];
     return Scaffold(
-        key: scaffoldKey,
-        drawer: const DrawerDefault(),
         body: SingleChildScrollView(
           child: Container(
             height: size.height,
@@ -45,11 +43,11 @@ class _PriceListManagementPageState extends State<PriceListManagementPage> {
                         SizedBox(
                             child: IconButton(
                           icon: const Icon(
-                            Icons.menu,
+                            Icons.arrow_back,
                             color: Colors.black87,
                           ),
                           onPressed: () {
-                            scaffoldKey.currentState!.openDrawer();
+                            Navigator.popAndPushNamed(context, "/parkingManagement");
                           },
                         )),
                         Title(

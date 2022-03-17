@@ -1,6 +1,8 @@
 import 'package:parking_app_mobile_business/views/history/history.dart';
+import 'package:parking_app_mobile_business/views/parking/parking_qrcode_page.dart';
 import 'package:parking_app_mobile_business/views/priceList/create_price_list_page.dart';
 import 'package:parking_app_mobile_business/views/priceList/price_list_management_page.dart';
+import 'package:parking_app_mobile_business/views/qr_code/qr_code.dart';
 import 'package:parking_app_mobile_business/views/sign_in/signIn_page.dart';
 import 'package:parking_app_mobile_business/views/sign_up/enter_password.dart';
 import 'package:parking_app_mobile_business/views/sign_up/enter_verification_code.dart';
@@ -26,5 +28,7 @@ class Routes {
     "/PriceListManagementPage": (context) => const PriceListManagementPage(),
     "/History": (context) => const History(),
     "/Wallet": (context) => Wallet(),
+    "/QRCodePage": (context) =>const QRCodePage(),
+    "/QRCodeMyParking": (context) =>const QRCodeMyParking()
   };
 }
