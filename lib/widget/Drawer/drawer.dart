@@ -1,15 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
 import 'package:parking_app_mobile_business/constants/assets_path.dart';
-import 'package:parking_app_mobile_business/repository/impl/users_rep_impl.dart';
 import 'package:parking_app_mobile_business/view_model/providers/logout_provider.dart';
-import 'package:parking_app_mobile_business/view_model/providers/url.api/url_api.dart';
 import 'package:parking_app_mobile_business/view_model/providers/user_profile_provider.dart';
 import 'package:parking_app_mobile_business/view_model/service/service_storage.dart';
-import 'package:parking_app_mobile_business/view_model/service/storage_enum.dart';
+import 'package:parking_app_mobile_business/view_model/providers/price_list_management_provider.dart';
 import 'package:parking_app_mobile_business/views/userProfile/user_profile.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +18,7 @@ class DrawerDefault extends StatelessWidget {
     LogOutProvider provider = Provider.of<LogOutProvider>(context);
     UserProfileProvider userProfileprovider =
         Provider.of<UserProfileProvider>(context);
+    PriceListManagementProvider priceListProvider = Provider.of<PriceListManagementProvider>(context);
     Size size = MediaQuery.of(context).size;
     double sizeImage = size.width * 0.08;
     return Drawer(
@@ -56,7 +53,7 @@ class DrawerDefault extends StatelessWidget {
                  child: Text(
                       userProfileprovider.fullNameSto != null
                           ? userProfileprovider.fullNameSto!
-                          : "Meo` 4`",
+                          : "Business",
                       style: AppTextStyles.h2Black),
                   onPressed: () async {
                     // final token = await secureStorage.readSecureData(
@@ -94,21 +91,20 @@ class DrawerDefault extends StatelessWidget {
               Navigator.pushReplacementNamed(context, "/parkingManagement");
             },
           ),
-          ListTile(
-            leading: Image.asset(
-              AssetPath.priceList,
-              width: sizeImage,
-              height: sizeImage,
-            ),
-            title: const Text(
-              'Price List',
-              style: TextStyle(fontWeight: FontWeight.w900),
-            ),
-            onTap: () {
-              Navigator.pushReplacementNamed(
-                  context, "/PriceListManagementPage");
-            },
-          ),
+          // ListTile(
+          //   leading: Image.asset(
+          //     AssetPath.priceList,
+          //     width: sizeImage,
+          //     height: sizeImage,
+          //   ),
+          //   title: const Text(
+          //     'Price List',
+          //     style: TextStyle(fontWeight: FontWeight.w900),
+          //   ),
+          //   onTap: () {
+          //     priceListProvider.getAllPriceList("2e1b41c4-c0ec-4c92-ba3e-f0293ae28b18", context);
+          //   },
+          // ),
           ListTile(
             leading: Image.asset(
               AssetPath.creditCardPayment,
@@ -137,52 +133,52 @@ class DrawerDefault extends StatelessWidget {
               Navigator.pushReplacementNamed(context, "/History");
             },
           ),
-          ListTile(
-            leading: Image.asset(
-              AssetPath.promotions,
-              width: sizeImage,
-              height: sizeImage,
-            ),
-            title: const Text(
-              "Promotion code",
-              style: TextStyle(fontWeight: FontWeight.w900),
-            ),
-            onTap: () {
-              log("get promotion code");
-            },
-          ),
+          // ListTile(
+          //   leading: Image.asset(
+          //     AssetPath.promotions,
+          //     width: sizeImage,
+          //     height: sizeImage,
+          //   ),
+          //   title: const Text(
+          //     "Promotion code",
+          //     style: TextStyle(fontWeight: FontWeight.w900),
+          //   ),
+          //   onTap: () {
+          //     log("get promotion code");
+          //   },
+          // ),
           const Divider(
             indent: 20,
             endIndent: 20,
           ),
-          ListTile(
-            leading: Image.asset(
-              AssetPath.customerService,
-              width: sizeImage,
-              height: sizeImage,
-            ),
-            title: const Text(
-              'Support',
-              style: TextStyle(fontWeight: FontWeight.w900),
-            ),
-            onTap: () {
-              log("View support");
-            },
-          ),
-          ListTile(
-            leading: Image.asset(
-              AssetPath.setting,
-              width: sizeImage,
-              height: sizeImage,
-            ),
-            title: const Text(
-              'Setting',
-              style: TextStyle(fontWeight: FontWeight.w900),
-            ),
-            onTap: () {
-              log("View Setting");
-            },
-          ),
+          // ListTile(
+          //   leading: Image.asset(
+          //     AssetPath.customerService,
+          //     width: sizeImage,
+          //     height: sizeImage,
+          //   ),
+          //   title: const Text(
+          //     'Support',
+          //     style: TextStyle(fontWeight: FontWeight.w900),
+          //   ),
+          //   onTap: () {
+          //     log("View support");
+          //   },
+          // ),
+          // ListTile(
+          //   leading: Image.asset(
+          //     AssetPath.setting,
+          //     width: sizeImage,
+          //     height: sizeImage,
+          //   ),
+          //   title: const Text(
+          //     'Setting',
+          //     style: TextStyle(fontWeight: FontWeight.w900),
+          //   ),
+          //   onTap: () {
+          //     log("View Setting");
+          //   },
+          // ),
           const Divider(
             indent: 20,
             endIndent: 20,

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
+import 'package:parking_app_mobile_business/repository/impl/price_list_management_impl.dart';
 import 'package:parking_app_mobile_business/view_model/providers/parking_detail_provider.dart';
+import 'package:parking_app_mobile_business/view_model/providers/url.api/url_api.dart';
 import 'package:parking_app_mobile_business/views/ListParkingSlot/list_parking_slot.dart';
+import 'package:parking_app_mobile_business/views/priceList/price_list_management_page.dart';
 import 'package:provider/provider.dart';
 
 class DetailParkingPage extends StatefulWidget {
@@ -189,7 +192,10 @@ class _DetailParkingPageState extends State<DetailParkingPage> {
                     ),
                   ],
                 )),
-        TextButton(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            TextButton(
             style: ButtonStyle(
             overlayColor: MaterialStateProperty.resolveWith<Color?>(
             (Set<MaterialState> states) {
@@ -204,7 +210,34 @@ class _DetailParkingPageState extends State<DetailParkingPage> {
             Navigator.push(context, MaterialPageRoute(builder: (context) => ListParkingSlot(parkingID: widget.parkingID),));
           },
             child: Text('View List Slot'),
-          )
+          ),
+            TextButton(
+            style: ButtonStyle(
+            overlayColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.focused))
+                return Colors.red;
+                if (states.contains(MaterialState.hovered))
+                 return Colors.green;
+             return null; // Defer to the widget's default.
+             }),
+          ),
+          onPressed: () { 
+            PriceListManagementImpl()
+            .getAllPriceListByParking(UrlApi.getPriceList, widget.parkingID)
+            .then((value){
+              Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PriceListManagementPage(priceLists: value.result!),
+              ));
+            });
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => ListParkingSlot(parkingID: widget.parkingID),));
+          },
+            child: Text('View Price List'),
+          ),
+          ],
+        )
           ],
         ),
       ),

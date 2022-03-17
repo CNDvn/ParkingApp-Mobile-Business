@@ -13,4 +13,6 @@ class UrlApi {
   static const String imagesPath = '$serverPath/images';
   static const getParkingSlot = '$serverPath/parking-slots/parking/';
   static const getParkingSlotDetail = '$serverPath/parking-slots/';
+  static const String getPriceList = '$serverPath/price-lists';
+  static const String getAllTypeCar = '$serverPath/type-cars';
 }

@@ -153,11 +153,11 @@ class _CreatePriceListPageState extends State<CreatePriceListPage> {
                   content: 'Add',
                   voidCallBack: () {
                     log("Add price list");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const PriceListManagementPage()));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) =>
+                    //             const PriceListManagementPage()));
                   },
                 ),
               ],

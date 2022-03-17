@@ -90,7 +90,7 @@ class HistoryDetail extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Parking Lot Name:",
+                          "Parking Name:",
                           style:
                               TextStyle(fontSize: 16, color: AppColor.greyText),
                         ),

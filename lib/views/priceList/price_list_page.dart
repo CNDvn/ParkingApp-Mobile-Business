@@ -2,16 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
+import 'package:parking_app_mobile_business/model/response/price_list_management_res.dart';
 import 'package:parking_app_mobile_business/widget/button/button.dart';
-
-class ListPriceDetail {
-  late String typeCar;
-  late String amount;
-  ListPriceDetail(String typeCar, String amount) {
-    this.typeCar = typeCar;
-    this.amount = amount;
-  }
-}
 
 class PriceListPage extends StatelessWidget {
   const PriceListPage(
@@ -21,7 +13,7 @@ class PriceListPage extends StatelessWidget {
       required this.namePriceList})
       : super(key: key);
 
-  final List<ListPriceDetail> listPriceDetail;
+  final List<PriceListDetail> listPriceDetail;
   final String status;
   final String namePriceList;
   @override
@@ -33,10 +25,9 @@ class PriceListPage extends StatelessWidget {
           boxShadow: const [
             BoxShadow(
                 color: Color.fromRGBO(144, 180, 206, 0.5),
-                offset: Offset(0,0),
+                offset: Offset(0, 0),
                 blurRadius: 5,
-                spreadRadius: 0
-                )
+                spreadRadius: 0)
           ],
           border: Border.all(color: Colors.blue),
           borderRadius: BorderRadius.circular(30)),
@@ -84,20 +75,20 @@ class PriceListPage extends StatelessWidget {
             height: size.height * 0.04,
           ),
           Container(
-            height: size.height * 0.4,
+            height: size.height * 0.37,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
                 children: [
-                  for (ListPriceDetail item in listPriceDetail)
+                  for (var item in listPriceDetail)
                     Wrap(children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(item.typeCar,
+                          Text(item.typeCar!.name!,
                               style: TextStyle(fontWeight: FontWeight.w500)),
                           Text(
-                            item.amount + "/hour",
+                            (item.price).toString().split('.')[0] + "/hour",
                             style: const TextStyle(fontWeight: FontWeight.w500),
                           )
                         ],

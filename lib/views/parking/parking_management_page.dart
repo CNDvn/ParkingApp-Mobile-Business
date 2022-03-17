@@ -99,8 +99,8 @@ class _ParkingManagementPageState extends State<ParkingManagementPage> {
                         size: size,
                         nameParking: item.name,
                         address: item.address,
-                        emptySlot: "12",
-                        fullSlot: "123",
+                        emptySlot: item.slotEmpty.toString(),
+                        fullSlot: item.slotFull.toString(),
                         openTime: item.openTime,
                         closeTime: item.closeTime,
                         voidCallbackFn: () => {
