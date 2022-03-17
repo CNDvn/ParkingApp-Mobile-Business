@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:geocoder/geocoder.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
 import 'package:parking_app_mobile_business/view_model/providers/new_parking_provider.dart';
+import 'package:parking_app_mobile_business/widget/button/button.dart';
 import 'package:provider/provider.dart';
 
-class NewParkingPage extends StatelessWidget {
+class NewParkingPage extends StatefulWidget {
   const NewParkingPage({Key? key}) : super(key: key);
 
+  @override
+  State<NewParkingPage> createState() => _NewParkingPageState();
+}
+
+class _NewParkingPageState extends State<NewParkingPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -67,8 +78,9 @@ class NewParkingPage extends StatelessWidget {
                         ? provider.address.error
                         : null),
                 focusNode: provider.nodeAddress,
-                onEditingComplete: () {
-                  provider.nodeHotline.requestFocus();
+                onEditingComplete: () { 
+                  provider.getJsonData();
+                  provider.nodeHotline.requestFocus();                               
                 },
                 onChanged: (String value) {
                   provider.checkAddress(value);
@@ -128,9 +140,21 @@ class NewParkingPage extends StatelessWidget {
                             },
                           );
                           if (pickedTime != null) {
-                            provider.checkOpenTime(pickedTime.hour.toString() +
+                            String hour = "";
+                            String minutes ="";
+                            if (pickedTime.hour.toString().length ==1) {
+                              hour = "0${pickedTime.hour.toString()}";
+                            } else {
+                              hour = pickedTime.hour.toString();
+                            }
+                            if (pickedTime.minute.toString().length ==1) {
+                              minutes = "0${pickedTime.minute.toString()}";
+                            } else {
+                              minutes = pickedTime.minute.toString();
+                            }
+                            provider.checkOpenTime(hour +
                                 ":" +
-                                pickedTime.minute.toString());
+                                minutes);
                           }
                         },
                       ),
@@ -164,30 +188,83 @@ class NewParkingPage extends StatelessWidget {
                           );
 
                           if (pickedTime != null) {
-                            provider.checkCloseTime(pickedTime.hour.toString() +
+                            String hour = "";
+                            String minutes ="";
+                            if (pickedTime.hour.toString().length ==1) {
+                              hour = "0${pickedTime.hour.toString()}";
+                            } else {
+                              hour = pickedTime.hour.toString();
+                            }
+                            if (pickedTime.minute.toString().length ==1) {
+                              minutes = "0${pickedTime.minute.toString()}";
+                            } else {
+                              minutes = pickedTime.minute.toString();
+                            }
+                            provider.checkCloseTime(hour +
                                 ":" +
-                                pickedTime.minute.toString());
+                                minutes);
                           }
                         },
                       ),
                     ),
                   ],
                 )),
-            Padding(padding: EdgeInsets.only(top: size.height * 0.02)),
+            // Padding(padding: EdgeInsets.only(top: size.height * 0.02)),
             SizedBox(
               child: Text(
                 provider.errorOpenTime + "\n" + provider.errorCloseTime,
                 style: const TextStyle(color: Colors.red),
               ),
+            ),            
+            Container(
+              height: size.height*0.15,
+              margin: EdgeInsets.only(top: size.height*0.02,bottom: size.height*0.02),
+              decoration: BoxDecoration(
+                border: Border.all(color: AppColor.blackText)
+              ),
+              child: FlutterMap(
+                mapController: provider.mapController,
+                options: MapOptions(
+                onTap: (v, p) async {
+                  List<Address> tmp = [];
+                  tmp = await Geocoder.local.findAddressesFromCoordinates(
+                      Coordinates(p.latitude, p.longitude));
+                  setState(() {
+                    provider.point = p;
+                    provider.location = tmp;
+                    Future.delayed(const Duration(milliseconds: 50),(){
+                      provider.mapController.move(provider.point, 16.5);
+                    });
+                    });  
+                },
+                center: provider.point,
+                zoom: 16.5,
+              ),
+                layers: [
+                TileLayerOptions(
+                  urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                  subdomains: ['a','b','c']
+                ),
+                MarkerLayerOptions(
+                  markers: [
+                    Marker(
+                      width: size.height*0.001,
+                      height: size.height*0.001,
+                      point: provider.point,
+                      builder: (ctx) => const SizedBox(
+                        child: Icon(
+                          Icons.location_on,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ),
+                  ]
+                  )
+              ], ),
             ),
-            Padding(padding: EdgeInsets.only(top: size.height * 0.1)),
             SizedBox(
-                height: size.height * 0.08,
-                width: size.width * 0.5,
-                child: ElevatedButton(
-                  child: const Text("Create Parking"),
-                  onPressed: () => {provider.submit()},
-                ))
+              child: ButtonDefault(content: "Create Parking",voidCallBack: () => {provider.submit(context)}),
+            )
           ],
         ),
       ),

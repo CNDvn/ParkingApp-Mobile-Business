@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/plugin_api.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
 import 'package:parking_app_mobile_business/repository/impl/parking_rep_impl.dart';
+import 'package:parking_app_mobile_business/view_model/providers/new_parking_provider.dart';
 import 'package:parking_app_mobile_business/view_model/providers/url.api/url_api.dart';
 import 'package:parking_app_mobile_business/views/parking/detail_parking_page.dart';
 import 'package:parking_app_mobile_business/views/parking/new_parking_page.dart';
 import 'package:parking_app_mobile_business/widget/Drawer/drawer.dart';
 import 'package:parking_app_mobile_business/widget/card/card_parking.dart';
+import 'package:provider/provider.dart';
 
 class ParkingManagementPage extends StatefulWidget {
   const ParkingManagementPage({Key? key}) : super(key: key);
@@ -18,6 +22,7 @@ class ParkingManagementPage extends StatefulWidget {
 class _ParkingManagementPageState extends State<ParkingManagementPage> {
   var listParking = [];
   @override
+  // ignore: must_call_super
   void initState() {
     ParkingImpl().getParking(UrlApi.getListMyParking).then((value) {
       setState(() {
@@ -30,6 +35,8 @@ class _ParkingManagementPageState extends State<ParkingManagementPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    NewParkingProvider providerNewParking =
+        Provider.of<NewParkingProvider>(context);
     return Scaffold(
       key: scaffoldKey,
       drawer: const DrawerDefault(),
@@ -56,7 +63,7 @@ class _ParkingManagementPageState extends State<ParkingManagementPage> {
                         scaffoldKey.currentState!.openDrawer();
                       },
                     )),
-                    Container(
+                    SizedBox(
                       child: Title(
                           color: AppColor.greyBackground,
                           child: Text(
@@ -71,6 +78,9 @@ class _ParkingManagementPageState extends State<ParkingManagementPage> {
                         color: Colors.black87,
                       ),
                       onPressed: () {
+                        providerNewParking.mapController = MapController();
+                        providerNewParking.point =
+                            LatLng(10.794862, 106.721784);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

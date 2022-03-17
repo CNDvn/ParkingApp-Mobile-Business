@@ -58,12 +58,12 @@ class Coordinate {
     this.longitude,
   });
 
-  String? latitude;
-  String? longitude;
+  double? latitude;
+  double? longitude;
 
   factory Coordinate.fromJson(Map<String, dynamic> json) => Coordinate(
-        latitude: json["latitude"],
-        longitude: json["longitude"],
+        latitude: double.parse(json["latitude"]),
+        longitude: double.parse(json["longitude"]),
       );
 
   Map<String, dynamic> toJson() => {
