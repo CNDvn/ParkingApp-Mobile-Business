@@ -7,16 +7,17 @@ import 'package:parking_app_mobile_business/views/priceList/price_list_page.dart
 import 'package:parking_app_mobile_business/widget/Drawer/drawer.dart';
 
 class PriceListManagementPage extends StatelessWidget {
-  PriceListManagementPage({Key? key, required this.priceLists})
+  PriceListManagementPage({Key? key, required this.priceLists, this.parkingID})
       : super(key: key);
 
   final List<Result> priceLists;
-  
+  String? parkingID;
+
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    
+
     return Scaffold(
         key: scaffoldKey,
         drawer: const DrawerDefault(),
@@ -59,8 +60,8 @@ class PriceListManagementPage extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        const CreatePriceListPage()));
+                                    builder: (context) => CreatePriceListPage(
+                                        parkingID: parkingID)));
                           },
                         )),
                       ]),
@@ -68,7 +69,7 @@ class PriceListManagementPage extends StatelessWidget {
                 SizedBox(
                   height: size.height * 0.85,
                   child: ListView(scrollDirection: Axis.horizontal, children: [
-                    for(var item in priceLists)
+                    for (var item in priceLists)
                       Container(
                         margin: EdgeInsets.only(top: size.height * 0.05),
                         width: size.width,

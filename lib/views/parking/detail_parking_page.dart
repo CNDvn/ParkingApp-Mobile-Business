@@ -229,7 +229,7 @@ class _DetailParkingPageState extends State<DetailParkingPage> {
               Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PriceListManagementPage(priceLists: value.result!),
+                builder: (context) => PriceListManagementPage(priceLists: value.result!,parkingID:widget.parkingID ),
               ));
             });
             // Navigator.push(context, MaterialPageRoute(builder: (context) => ListParkingSlot(parkingID: widget.parkingID),));

@@ -15,7 +15,7 @@ class Routes {
   static final Map<String, Widget Function(BuildContext)> routes = {
     // "/": (context) => const Root(),
     "/": (context) => const SignInPage(),
-    "/CreatePriceList": (context) => const CreatePriceListPage(),
+    "/CreatePriceList": (context) => CreatePriceListPage(),
     // "/ManagerPriceList": (context) => const PriceListManagementPage(),
     "/UserProfile": (context) => const UserProfile(),
     "/EnterPassword": (context) => const EnterPassword(),
