@@ -3,4 +3,5 @@ import 'package:parking_app_mobile_business/model/response/create_price_list_res
 
 abstract class PriceListRepo {
   Future<PriceListRes> postPriceList(String url, String token,PriceListReq data);
+  Future<PriceListRes> putPriceList(String url, String token, PriceListReq data);
 }

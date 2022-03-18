@@ -1,8 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:parking_app_mobile_business/configs/toast/toast.dart';
 import 'package:parking_app_mobile_business/model/request/create_price_list_req.dart';
+import 'package:parking_app_mobile_business/model/response/price_list_management_res.dart'
+    as A;
 import 'package:parking_app_mobile_business/repository/impl/create_price_list_rep_impl.dart';
 import 'package:parking_app_mobile_business/repository/impl/type_car_rep_impl.dart';
 import 'package:parking_app_mobile_business/view_model/providers/parking_detail_provider.dart';
@@ -17,8 +20,11 @@ import 'package:provider/provider.dart';
 import '../../model/response/list_type_car_res.dart';
 
 class CreatePriceListPage extends StatefulWidget {
-  CreatePriceListPage({Key? key, this.parkingID}) : super(key: key);
+  CreatePriceListPage({Key? key, this.parkingID, this.isUpdate, this.item})
+      : super(key: key);
   String? parkingID;
+  bool? isUpdate;
+  final A.Result? item;
   @override
   State<CreatePriceListPage> createState() => _CreatePriceListPageState();
 }
@@ -29,45 +35,100 @@ class _CreatePriceListPageState extends State<CreatePriceListPage> {
   List<PriceListCreate> listPriceCreate = [];
   int lengthItem = 0;
   List<Result> listTypeCar = [];
+  TextEditingController priceListNameController = TextEditingController();
   @override
   void initState() {
     super.initState();
-    TypeCarImpl().getAllTypeCars(UrlApi.getAllTypeCar).then((value) => {
-          setState(() {
-            listTypeCar = value.result!;
-            dropdownValue = value.result![0].name!;
-            listPriceCreate.add(PriceListCreate(
-                idTypeCar: value.result![0].id!,
-                nameTypeCar: value.result![0].name!,
-                amount: 0));
-          })
-        });
+    // if (widget.isUpdate!) {
+    //   final SecureStorage secureStorage = SecureStorage();
+    //   secureStorage
+    //       .readSecureData(StorageEnum.accessToken.toShortString())
+    //       .then((value) => {
+    //             PriceListRepImpl().putPriceList(
+    //                 UrlApi.postPriceList + "/" + widget.priceListID!,
+    //                 value,
+    //                 data)
+    //           });
+    // } else {
+
+    // }
+    if (widget.isUpdate!) {
+      List<PriceListCreate> priceListCreateUpdate = [];
+      for (var item in widget.item!.priceListDetails!) {
+        TextEditingController controller = TextEditingController();
+        controller.value = TextEditingValue(text: item.price!.split(".")[0]);
+        priceListCreateUpdate.add(PriceListCreate(
+            idTypeCar: item.typeCar!.id,
+            nameTypeCar: item.typeCar!.name,
+            amount: item.price!.split(".")[0],
+            controller: controller));
+      }
+      priceListNameController.value =
+          TextEditingValue(text: widget.item!.nameParking!);
+      TypeCarImpl().getAllTypeCars(UrlApi.getAllTypeCar).then((value) => {
+            setState(() {
+              listTypeCar = value.result!;
+              dropdownValue = widget.item!.priceListDetails![0].typeCar!.name!;
+              listPriceCreate = priceListCreateUpdate;
+            })
+          });
+    } else {
+      TypeCarImpl().getAllTypeCars(UrlApi.getAllTypeCar).then((value) => {
+            setState(() {
+              listTypeCar = value.result!;
+              dropdownValue = value.result![0].name!;
+              listPriceCreate.add(PriceListCreate(
+                  idTypeCar: value.result![0].id!,
+                  nameTypeCar: value.result![0].name!,
+                  amount: "0"));
+            })
+          });
+    }
   }
 
   void handleSubmit() {
     final SecureStorage secureStorage = SecureStorage();
     List<PriceListDetail> listPriceDetail = [];
     for (var item in listPriceCreate) {
-      listPriceDetail.add(
-          PriceListDetail(price: item.amount!, typeCarId: item.idTypeCar!));
+      listPriceDetail.add(PriceListDetail(
+          price: double.parse(item.amount!.replaceAll("VND", "").trim()),
+          typeCarId: item.idTypeCar!));
     }
     PriceListReq data =
         PriceListReq(name: nameTablePrice, priceListDetails: listPriceDetail);
-
-    secureStorage
-        .readSecureData(StorageEnum.accessToken.toShortString())
-        .then((accessToken) => {
-              PriceListRepImpl()
-                  .postPriceList(UrlApi.postPriceList + "/" + widget.parkingID!,
-                      accessToken, data)
-                  .then((data) => {
-                        showToastSuccess(data.result!),
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return const ParkingManagementPage();
-                        }))
-                      })
-            });
+    if (widget.isUpdate!) {
+      secureStorage
+          .readSecureData(StorageEnum.accessToken.toShortString())
+          .then((accessToken) => {
+                PriceListRepImpl()
+                    .putPriceList(UrlApi.postPriceList + "/" + widget.item!.id!,
+                        accessToken, data)
+                    .then((data) => {
+                          showToastSuccess(data.result!),
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const ParkingManagementPage();
+                          }))
+                        })
+              });
+    } else {
+      secureStorage
+          .readSecureData(StorageEnum.accessToken.toShortString())
+          .then((accessToken) => {
+                PriceListRepImpl()
+                    .postPriceList(
+                        UrlApi.postPriceList + "/" + widget.parkingID!,
+                        accessToken,
+                        data)
+                    .then((data) => {
+                          showToastSuccess(data.result!),
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const ParkingManagementPage();
+                          }))
+                        })
+              });
+    }
   }
 
   @override
@@ -96,10 +157,10 @@ class _CreatePriceListPageState extends State<CreatePriceListPage> {
                 },
               )),
             ]),
-            const Text(
-              "Create Price List",
+            Text(
+              widget.isUpdate! ? "Update Price List" : "Create Price List",
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                   fontWeight: FontWeight.w700, fontSize: 28, height: 1.6),
             ),
             SizedBox(
@@ -109,6 +170,7 @@ class _CreatePriceListPageState extends State<CreatePriceListPage> {
                 height: size.height * 0.12,
                 width: size.width * 0.9,
                 child: TextField(
+                    controller: priceListNameController,
                     onChanged: (String value) {
                       log(value);
                       setState(() {
@@ -186,6 +248,7 @@ class _CreatePriceListPageState extends State<CreatePriceListPage> {
                               height: size.height * 0.09,
                               width: size.width * 0.5,
                               child: TextField(
+                                  controller: listPriceCreate[i].controller,
                                   keyboardType: TextInputType.number,
                                   onChanged: (String value) {
                                     log(value);
@@ -195,7 +258,7 @@ class _CreatePriceListPageState extends State<CreatePriceListPage> {
                                                 listPriceCreate[i].idTypeCar,
                                             nameTypeCar:
                                                 listPriceCreate[i].nameTypeCar,
-                                            amount: int.parse(value));
+                                            amount: value);
                                     setState(() {
                                       // dropdownValue = newValue!;
                                       listPriceCreate[i] = itemClone;
@@ -243,7 +306,7 @@ class _CreatePriceListPageState extends State<CreatePriceListPage> {
                                 listPriceCreate.add(PriceListCreate(
                                     idTypeCar: listTypeCar[0].id,
                                     nameTypeCar: listTypeCar[0].name,
-                                    amount: 0));
+                                    amount: "0"));
                               });
                             }
                           },

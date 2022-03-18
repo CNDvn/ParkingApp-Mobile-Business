@@ -38,7 +38,7 @@ class PriceListDetail {
   });
 
   String typeCarId;
-  int price;
+  double price;
 
   factory PriceListDetail.fromJson(Map<String, dynamic> json) =>
       PriceListDetail(

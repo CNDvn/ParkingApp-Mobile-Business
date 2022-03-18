@@ -24,4 +24,20 @@ class PriceListRepImpl implements PriceListRepo {
     }
     return result;
   }
+
+  @override
+  Future<PriceListRes> putPriceList(String url, String accessToken, PriceListReq data) async {
+    var result = PriceListRes();
+    try {
+      Response response = await Dio().put(url,
+          data: data,
+          options: Options(headers: {
+            HttpHeaders.authorizationHeader: 'Bearer $accessToken'
+          }));
+      result = PriceListRes.priceListResFromJson(jsonEncode(response.data));
+    } on DioError catch (e) {
+      showToastFail(e.response?.data["message"]);
+    }
+    return result;
+  }
 }

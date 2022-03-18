@@ -61,7 +61,9 @@ class PriceListManagementPage extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => CreatePriceListPage(
-                                        parkingID: parkingID)));
+                                          parkingID: parkingID,
+                                          isUpdate: false,
+                                        )));
                           },
                         )),
                       ]),
@@ -74,11 +76,7 @@ class PriceListManagementPage extends StatelessWidget {
                         margin: EdgeInsets.only(top: size.height * 0.05),
                         width: size.width,
                         padding: EdgeInsets.all(size.width * 0.05),
-                        child: PriceListPage(
-                          listPriceDetail: item.priceListDetails!,
-                          status: item.status!,
-                          namePriceList: item.name!,
-                        ),
+                        child: PriceListPage(item: item),
                       ),
                   ]),
                 ),
