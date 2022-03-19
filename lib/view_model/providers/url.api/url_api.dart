@@ -1,5 +1,5 @@
 class UrlApi {
-  static const String serverPath = "http://13.70.20.93:5000/api/v1";
+  static const String serverPath = "https://parkingappbe.eastasia.cloudapp.azure.com/api/v1";
   static const String singInPath = '$serverPath/auths/login';
   static const String verifyOTPPath = '$serverPath/auths/verifyOTPSignUp';
   static const String signupPath = '$serverPath/auths/business';
@@ -15,5 +15,6 @@ class UrlApi {
   static const getParkingSlotDetail = '$serverPath/parking-slots/';
   static const String getPriceList = '$serverPath/price-lists';
   static const String getAllTypeCar = '$serverPath/type-cars';
+  static const String historyPath = "$serverPath/historys/me/parking";
   static const String postPriceList = '$serverPath/price-lists';
 }
