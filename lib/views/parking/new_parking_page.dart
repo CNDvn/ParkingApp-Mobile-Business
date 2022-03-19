@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:geocoder/geocoder.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
 import 'package:parking_app_mobile_business/view_model/providers/new_parking_provider.dart';
@@ -32,21 +30,21 @@ class _NewParkingPageState extends State<NewParkingPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              SizedBox(
-                  child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.black87,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )),
-            ]),
+            SizedBox(
+                child: IconButton(
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.black87,
+              ),
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(context, "/parkingManagement", (route) => false);
+              },
+            )),
+          ]),
             Title(
                 color: AppColor.greyBackground,
                 child: Text(
-                  "Create your parking",
+                  "Create Your Parking",
                   style: AppTextStyles.h2Black,
                 )),
             Padding(padding: EdgeInsets.only(bottom: size.height * 0.05)),
@@ -59,7 +57,6 @@ class _NewParkingPageState extends State<NewParkingPage> {
                     errorText: provider.clickButtonFlag
                         ? provider.parkingName.error
                         : null),
-                autofocus: true,
                 onEditingComplete: () {
                   provider.nodeAddress.requestFocus();
                 },
