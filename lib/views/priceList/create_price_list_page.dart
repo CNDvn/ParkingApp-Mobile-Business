@@ -39,19 +39,6 @@ class _CreatePriceListPageState extends State<CreatePriceListPage> {
   @override
   void initState() {
     super.initState();
-    // if (widget.isUpdate!) {
-    //   final SecureStorage secureStorage = SecureStorage();
-    //   secureStorage
-    //       .readSecureData(StorageEnum.accessToken.toShortString())
-    //       .then((value) => {
-    //             PriceListRepImpl().putPriceList(
-    //                 UrlApi.postPriceList + "/" + widget.priceListID!,
-    //                 value,
-    //                 data)
-    //           });
-    // } else {
-
-    // }
     if (widget.isUpdate!) {
       List<PriceListCreate> priceListCreateUpdate = [];
       for (var item in widget.item!.priceListDetails!) {
@@ -64,9 +51,10 @@ class _CreatePriceListPageState extends State<CreatePriceListPage> {
             controller: controller));
       }
       priceListNameController.value =
-          TextEditingValue(text: widget.item!.nameParking!);
+          TextEditingValue(text: widget.item!.name!);
       TypeCarImpl().getAllTypeCars(UrlApi.getAllTypeCar).then((value) => {
             setState(() {
+              nameTablePrice = widget.item!.name!;
               listTypeCar = value.result!;
               dropdownValue = widget.item!.priceListDetails![0].typeCar!.name!;
               listPriceCreate = priceListCreateUpdate;
