@@ -5,69 +5,65 @@
 import 'dart:convert';
 
 import 'package:parking_app_mobile_business/model/entity/business.dart';
-
-ParkingRes parkingResFromJson(String str) =>
-    ParkingRes.fromJson(json.decode(str));
-
-String parkingResToJson(ParkingRes data) => json.encode(data.toJson());
+import 'package:parking_app_mobile_business/model/entity/image.dart';
 
 class ParkingRes {
-  ParkingRes({
-    this.result,
-    this.statusCode,
-  });
+    ParkingRes({
+        this.result,
+        this.statusCode,
+    });
 
-  Result? result;
-  int? statusCode;
+    Result? result;
+    int? statusCode;
 
-  factory ParkingRes.fromJson(Map<String, dynamic> json) => ParkingRes(
+    factory ParkingRes.fromJson(Map<String, dynamic> json) => ParkingRes(
         result: Result.fromJson(json["result"]),
         statusCode: json["statusCode"],
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "result": result?.toJson(),
         "statusCode": statusCode,
-      };
-  static ParkingRes parkingResFromJson(String str) =>
-      ParkingRes.fromJson(json.decode(str));
-  String parkingResToJson(ParkingRes data) => json.encode(data.toJson());
+    };
+    static ParkingRes parkingResFromJson(String str) => ParkingRes.fromJson(json.decode(str));
+
+String parkingResToJson(ParkingRes data) => json.encode(data.toJson());
 }
 
 class Result {
-  Result({
-    this.data,
-    this.count,
-    this.currentPage,
-    this.nextPage,
-    this.prevPage,
-    this.lastPage,
-  });
+    Result({
+        this.data,
+        this.count,
+        this.currentPage,
+        this.nextPage,
+        this.prevPage,
+        this.lastPage,
+    });
 
-  List<Datum>? data;
-  int? count;
-  int? currentPage;
-  int? nextPage;
-  dynamic? prevPage;
-  int? lastPage;
+    List<Datum>? data;
+    int? count;
+    int? currentPage;
+    int? nextPage;
+    dynamic prevPage;
+    int? lastPage;
 
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
+    factory Result.fromJson(Map<String, dynamic> json) => Result(
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
         count: json["count"],
         currentPage: json["currentPage"],
         nextPage: json["nextPage"],
         prevPage: json["prevPage"],
         lastPage: json["lastPage"],
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "data": List<dynamic>.from(data!.map((x) => x.toJson())),
         "count": count,
         "currentPage": currentPage,
         "nextPage": nextPage,
         "prevPage": prevPage,
         "lastPage": lastPage,
-      };
+    };
 }
 
 class Datum {
@@ -94,7 +90,7 @@ class Datum {
     String? status;
     String? phoneNumber;
     Business? business;
-    List<Image>? images;
+    List<Images>? images;
     int? slotFull;
     int? slotEmpty;
     Coordinates? coordinates;
@@ -108,7 +104,7 @@ class Datum {
         status: json["status"],
         phoneNumber: json["phoneNumber"],
         business: Business.fromJson(json["business"]),
-        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        images: List<Images>.from(json["images"].map((x) => Images.fromJson(x))),
         slotFull: json["slotFull"],
         slotEmpty: json["slotEmpty"],
         coordinates: Coordinates.fromJson(json["coordinates"]),
@@ -129,38 +125,123 @@ class Datum {
         "coordinates": coordinates?.toJson(),
     };
 }
-class Coordinates {
-  Coordinates({
-    required this.latitude,
-    required this.longitude,
-  });
 
-  double latitude;
-  double longitude;
+class Business {
+    Business({
+        this.id,
+        this.user,
+    });
 
-  factory Coordinates.fromJson(Map<String, dynamic> json) => Coordinates(
-        latitude: json["latitude"].toDouble(),
-        longitude: json["longitude"].toDouble(),
-      );
+    String? id;
+    User? user;
 
-  Map<String, dynamic> toJson() => {
-        "latitude": latitude,
-        "longitude": longitude,
-      };
+    factory Business.fromJson(Map<String, dynamic> json) => Business(
+        id: json["id"],
+        user: User.fromJson(json["user"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "user": user?.toJson(),
+    };
 }
 
-class Image {
-  Image({
-    required this.url,
-  });
+class User {
+    User({
+        this.id,
+        this.firstName,
+        this.lastName,
+        this.dob,
+        this.status,
+        this.username,
+        this.phoneNumber,
+        this.email,
+        this.address,
+        this.avatar,
+        this.role,
+        this.fullName,
+    });
 
-  String url;
+    String? id;
+    String? firstName;
+    String? lastName;
+    DateTime? dob;
+    String? status;
+    String? username;
+    String? phoneNumber;
+    String? email;
+    String? address;
+    String? avatar;
+    Role? role;
+    String? fullName;
 
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
-        url: json["url"],
-      );
+    factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json["id"],
+        firstName: json["firstName"],
+        lastName: json["lastName"],
+        dob: DateTime.parse(json["DOB"]),
+        status: json["status"],
+        username: json["username"],
+        phoneNumber: json["phoneNumber"],
+        email: json["email"],
+        address: json["address"],
+        avatar: json["avatar"],
+        role: Role.fromJson(json["role"]),
+        fullName: json["fullName"],
+    );
 
-  Map<String, dynamic> toJson() => {
-        "url": url,
-      };
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "firstName": firstName,
+        "lastName": lastName,
+        "DOB": dob?.toIso8601String(),
+        "status": status,
+        "username": username,
+        "phoneNumber": phoneNumber,
+        "email": email,
+        "address": address,
+        "avatar": avatar,
+        "role": role?.toJson(),
+        "fullName": fullName,
+    };
+}
+
+class Role {
+    Role({
+        this.id,
+        this.name,
+    });
+
+    String? id;
+    String? name;
+
+    factory Role.fromJson(Map<String, dynamic> json) => Role(
+        id: json["id"],
+        name: json["name"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+    };
+}
+
+class Coordinates {
+    Coordinates({
+        this.latitude,
+        this.longitude,
+    });
+
+    double? latitude;
+    double? longitude;
+
+    factory Coordinates.fromJson(Map<String, dynamic> json) => Coordinates(
+        latitude: json["latitude"].toDouble(),
+        longitude: json["longitude"].toDouble(),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "latitude": latitude,
+        "longitude": longitude,
+    };
 }

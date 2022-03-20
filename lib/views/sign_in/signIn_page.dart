@@ -14,7 +14,7 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    SignInProvider signInProvider = Provider.of<SignInProvider>(context, listen: false);
+    SignInProvider signInProvider = Provider.of<SignInProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: BackGround(

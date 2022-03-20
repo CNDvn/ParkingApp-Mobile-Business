@@ -80,7 +80,7 @@ class _DetailParkingPageState extends State<DetailParkingPage> {
                 Icons.arrow_back,
                 color: Colors.black87,
               ),
-              onPressed: () {                
+              onPressed: () {
                 Navigator.pushNamedAndRemoveUntil(context, "/parkingManagement", (route) => false);
               },
             )),
