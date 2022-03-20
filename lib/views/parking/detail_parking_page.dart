@@ -78,6 +78,7 @@ class _DetailParkingPageState extends State<DetailParkingPage> {
                 color: Colors.black87,
               ),
               onPressed: () {
+                
                 Navigator.pushNamedAndRemoveUntil(context, "/parkingManagement", (route) => false);
               },
             )),
