@@ -123,7 +123,7 @@ class _WalletState extends State<Wallet> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      "Expired Time: ",
+                                      "Created Time: ",
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                           color: AppColor.blackText,
@@ -132,9 +132,9 @@ class _WalletState extends State<Wallet> {
                                     ),
                                     Text(
                                       widget.wallet != null
-                                          ? DateFormat('yyyy-MM-dd – kk:mm')
+                                          ? DateFormat('dd-MM-yyyy – kk:mm')
                                               .format(
-                                                  widget.wallet!.expiredTime)
+                                                  widget.wallet!.createdTime)
                                           : "0",
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
@@ -159,7 +159,7 @@ class _WalletState extends State<Wallet> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      "Created Time: ",
+                                      "Expired Time: ",
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                           color: AppColor.blackText,
@@ -168,9 +168,9 @@ class _WalletState extends State<Wallet> {
                                     ),
                                     Text(
                                       widget.wallet != null
-                                          ? DateFormat('yyyy-MM-dd – kk:mm')
+                                          ? DateFormat('dd-MM-yyyy – kk:mm')
                                               .format(
-                                                  widget.wallet!.createdTime)
+                                                  widget.wallet!.expiredTime)
                                           : "0",
                                       // widget.wallet != null
                                       //     ? widget.wallet!.createdTime
