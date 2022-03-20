@@ -12,77 +12,67 @@ class PriceListManagementPage extends StatelessWidget {
 
   final List<Result> priceLists;
   String? parkingID;
-
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
-        key: scaffoldKey,
-        drawer: const DrawerDefault(),
         body: SingleChildScrollView(
-          child: Container(
-            height: size.height,
-            width: size.width,
-            padding: const EdgeInsets.only(top: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, top: 28, right: 15),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                            child: IconButton(
-                          icon: const Icon(
-                            Icons.menu,
-                            color: Colors.black87,
-                          ),
-                          onPressed: () {
-                            scaffoldKey.currentState!.openDrawer();
-                          },
-                        )),
-                        Title(
-                            color: AppColor.greyBackground,
-                            child: Text(
-                              "Manage Price List",
-                              style: AppTextStyles.h2Black,
-                            )),
-                        SizedBox(
-                            child: IconButton(
-                          icon: const Icon(
-                            Icons.create,
-                            color: Colors.black87,
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CreatePriceListPage(
-                                          parkingID: parkingID,
-                                          isUpdate: false,
-                                        )));
-                          },
-                        )),
-                      ]),
+      child: Container(
+        height: size.height,
+        width: size.width,
+        padding: const EdgeInsets.only(top: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              SizedBox(
+                  child: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.black87,
                 ),
-                SizedBox(
-                  height: size.height * 0.85,
-                  child: ListView(scrollDirection: Axis.horizontal, children: [
-                    for (var item in priceLists)
-                      Container(
-                        margin: EdgeInsets.only(top: size.height * 0.05),
-                        width: size.width,
-                        padding: EdgeInsets.all(size.width * 0.05),
-                        child: PriceListPage(item: item),
-                      ),
-                  ]),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )),
+              Title(
+                  color: AppColor.greyBackground,
+                  child: Text(
+                    "Manage Price List",
+                    style: AppTextStyles.h2Black,
+                  )),
+              SizedBox(
+                  child: IconButton(
+                icon: const Icon(
+                  Icons.create,
+                  color: Colors.black87,
                 ),
-              ],
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CreatePriceListPage(
+                                parkingID: parkingID,
+                                isUpdate: false,
+                              )));
+                },
+              )),
+            ]),
+            SizedBox(
+              height: size.height * 0.85,
+              child: ListView(scrollDirection: Axis.horizontal, children: [
+                for (var item in priceLists)
+                  Container(
+                    margin: EdgeInsets.only(top: size.height * 0.05),
+                    width: size.width,
+                    padding: EdgeInsets.all(size.width * 0.05),
+                    child: PriceListPage(item: item),
+                  ),
+              ]),
             ),
-          ),
-        ));
+          ],
+        ),
+      ),
+    ));
   }
 }

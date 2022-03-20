@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
 import 'package:parking_app_mobile_business/model/response/parking_slot_res.dart';
 import 'package:parking_app_mobile_business/repository/impl/parking_slot_impl.dart';
 import 'package:parking_app_mobile_business/view_model/providers/detail_slot_provider.dart';
@@ -34,10 +35,18 @@ class _ListParkingSlotState extends State<ListParkingSlot> {
         Provider.of<DetailSlotProvider>(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            "List Parking Slot",
+        appBar: AppBar(leading: IconButton(
+          icon:const Icon(Icons.arrow_back,color: Colors.black,),onPressed: (){
+            Navigator.pop(context);
+          },),
+          title: Container(
+            margin: EdgeInsets.only(left: size.width*0.1),
+            child: const Text(
+              "List Parking Slot",
+              textAlign: TextAlign.center,
+            ),
           ),
+          backgroundColor: AppColor.blueText,
         ),
         body: Container(
           margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
