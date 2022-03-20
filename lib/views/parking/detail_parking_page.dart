@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_color.dart';
 import 'package:parking_app_mobile_business/configs/themes/app_text_style.dart';
 import 'package:parking_app_mobile_business/model/entity/image.dart';
+import 'package:parking_app_mobile_business/repository/impl/price_list_management_impl.dart';
 import 'package:parking_app_mobile_business/view_model/providers/parking_detail_provider.dart';
+import 'package:parking_app_mobile_business/view_model/providers/url.api/url_api.dart';
 import 'package:parking_app_mobile_business/views/ListParkingSlot/list_parking_slot.dart';
+import 'package:parking_app_mobile_business/views/priceList/price_list_management_page.dart';
 import 'package:parking_app_mobile_business/widget/button/button.dart';
 import 'package:parking_app_mobile_business/widget/carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
@@ -280,23 +283,55 @@ class _DetailParkingPageState extends State<DetailParkingPage> {
                   ),
                 ],
               )),
-      TextButton(
-          style: ButtonStyle(
-          overlayColor: MaterialStateProperty.resolveWith<Color?>(
-          (Set<MaterialState> states) {
-            if (states.contains(MaterialState.focused))
-              // ignore: curly_braces_in_flow_control_structures
-              return Colors.red;
-              if (states.contains(MaterialState.hovered))
-               // ignore: curly_braces_in_flow_control_structures
-               return Colors.green;
-           return null; // Defer to the widget's default.
-           }),
-        ),
-        onPressed: () { 
-          Navigator.push(context, MaterialPageRoute(builder: (context) => ListParkingSlot(parkingID: widget.parkingID),));
-        },
-          child:const Text('View List Slot'),
+      Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            TextButton(
+            style: ButtonStyle(
+            overlayColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.focused))
+                // ignore: curly_braces_in_flow_control_structures
+                return Colors.red;
+                if (states.contains(MaterialState.hovered))
+                 // ignore: curly_braces_in_flow_control_structures
+                 return Colors.green;
+             return null; // Defer to the widget's default.
+             }),
+          ),
+          onPressed: () { 
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ListParkingSlot(parkingID: widget.parkingID),));
+          },
+            child:const Text('View List Slot'),
+          ),
+            TextButton(
+            style: ButtonStyle(
+            overlayColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.focused))
+                // ignore: curly_braces_in_flow_control_structures
+                return Colors.red;
+                if (states.contains(MaterialState.hovered))
+                 // ignore: curly_braces_in_flow_control_structures
+                 return Colors.green;
+             return null; // Defer to the widget's default.
+             }),
+          ),
+          onPressed: () { 
+            PriceListManagementImpl()
+            .getAllPriceListByParking(UrlApi.getPriceList, widget.parkingID)
+            .then((value){
+              Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PriceListManagementPage(priceLists: value.result!,parkingID:widget.parkingID ),
+              ));
+            });
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => ListParkingSlot(parkingID: widget.parkingID),));
+          },
+            child:const Text('View Price List'),
+          ),
+          ],
         ),
         SizedBox(
           child: ButtonDefault(content: "Update", voidCallBack: (){
