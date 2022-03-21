@@ -4,8 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:parking_app_mobile_business/configs/exception/exception.dart';
 import 'package:parking_app_mobile_business/configs/toast/toast.dart';
+import 'package:parking_app_mobile_business/model/request/push_notify_req.dart';
 import 'package:parking_app_mobile_business/model/request/sign_in_req.dart';
 import 'package:parking_app_mobile_business/repository/impl/auth_rep_impl.dart';
+import 'package:parking_app_mobile_business/repository/impl/push_notify_impl.dart';
 import 'package:parking_app_mobile_business/repository/impl/users_rep_impl.dart';
 import 'package:parking_app_mobile_business/view_model/providers/url.api/url_api.dart';
 import 'package:parking_app_mobile_business/view_model/providers/user_profile_provider.dart';
@@ -125,6 +127,7 @@ class SignInProvider with ChangeNotifier {
                   role: "business"))
           .then((value) async {
         final SecureStorage secureStorage = SecureStorage();
+        final deviceToken = await secureStorage.readSecureData("deviceToken");
         await secureStorage.writeSecureData(
             StorageEnum.accessToken.toShortString(), value.result!.accessToken);
         await secureStorage.writeSecureData(
@@ -132,6 +135,11 @@ class SignInProvider with ChangeNotifier {
             value.result!.refreshToken);
         final token = await secureStorage
             .readSecureData(StorageEnum.accessToken.toShortString());
+        PushNotifyImp()
+            .pushNotify(
+                UrlApi.pushNotify, token, PushNotifyReq(token: deviceToken))
+            .then((value) => print(value));
+
         await UsersRepImpl()
             .getUsersMe(UrlApi.usersPath + "/me", token)
             .then((value) async {

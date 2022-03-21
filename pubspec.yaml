@@ -70,10 +70,13 @@ dependencies:
   google_sign_in: ^5.2.4
   intl: ^0.17.0
   image_picker: ^0.8.3+1
+  firebase_messaging: ^11.2.10
+  flutter_local_notifications: ^9.4.0
   # carousel
   carousel_slider: ^4.0.0
   # QR code
   qr_code_scanner: ^0.7.0
+  
 
 
 dev_dependencies:

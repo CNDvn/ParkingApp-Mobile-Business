@@ -17,4 +17,6 @@ class UrlApi {
   static const String getAllTypeCar = '$serverPath/type-cars';
   static const String historyPath = "$serverPath/historys/me/parking";
   static const String postPriceList = '$serverPath/price-lists';
+  static const String pushNotify = '$serverPath/push-notification/deviceToken';
+
 }
