@@ -1,4 +1,6 @@
 // @dart=2.9
+import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -15,24 +17,24 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
   print("message ID: " + message.messageId);
 }
+
 Future<void> main() async {
-   WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await NotificationService().init();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({key}) : super(key: key);
+  MyApp({key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-
-    FirebaseMessaging messaging;
+  FirebaseMessaging messaging;
   final SecureStorage secureStorage = SecureStorage();
   _registerOnFireBase() {
     messaging.subscribeToTopic("all");
@@ -40,18 +42,19 @@ class _MyAppState extends State<MyApp> {
       await secureStorage.writeSecureData("deviceToken", value);
     });
   }
-  // This widget is the root of your application.  
+
+  // This widget is the root of your application.
   @override
   void initState() {
     // TODO: implement initState
-    
-     messaging = FirebaseMessaging.instance;
+
+    messaging = FirebaseMessaging.instance;
     _registerOnFireBase();
     getMessage();
     super.initState();
   }
-  
-void getMessage() async {
+
+  void getMessage() async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails('Channel_id', 'your channel name',
             channelDescription: 'your channel description',
@@ -71,6 +74,7 @@ void getMessage() async {
             notification.body,
             platformChannelSpecifics,
             payload: 'item x');
+        log("as");
       }
     });
 
