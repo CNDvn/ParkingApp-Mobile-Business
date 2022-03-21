@@ -1,5 +1,6 @@
 import 'package:parking_app_mobile_business/views/history/list_parking_history.dart';
 import 'package:parking_app_mobile_business/views/priceList/create_price_list_page.dart';
+import 'package:parking_app_mobile_business/views/promotion/promotion.dart';
 import 'package:parking_app_mobile_business/views/qr_code/qr_code_page.dart';
 import 'package:parking_app_mobile_business/views/qr_code/qr_scan_page.dart';
 import 'package:parking_app_mobile_business/views/sign_in/signIn_page.dart';
@@ -29,5 +30,6 @@ class Routes {
     "/Wallet": (context) => Wallet(),
     "/QRScanPage": (context) => const QRScanPage(),
     "/QRCodeMyPage": (context) => const QRCodeMyPage(),
+    "/Promotion": (context) => const Promotion(),
   };
 }
