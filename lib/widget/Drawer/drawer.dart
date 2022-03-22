@@ -120,7 +120,7 @@ class DrawerDefault extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w900),
             ),
             onTap: () {
-              log("get promotion code");
+              Navigator.pushReplacementNamed(context, "/Promotion");
             },
           ),
           const Divider(
