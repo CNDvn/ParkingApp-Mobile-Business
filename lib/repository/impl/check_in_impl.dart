@@ -18,12 +18,11 @@ class CheckInRepImpl extends CheckinRep {
             HttpHeaders.authorizationHeader: 'Bearer $accessToken'
           }));
       if (response.data != null) {
-        showToastSuccess("Check-out Successful");
+        showToastSuccess("Check-in Successful");
         return;
       }
     } on DioError catch (e) {
       showToastFail(e.response?.data["message"]);
     }
   }
-
 }
