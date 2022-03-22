@@ -15,7 +15,7 @@ class _QRCodeMyPageState extends State<QRCodeMyPage> {
   // ignore: prefer_collection_literals
   Map<String, String> listParking = Map<String, String>();
   String name = "";
-  String id ="";
+  String id = "";
   @override
   void initState() {
     super.initState();
@@ -27,8 +27,8 @@ class _QRCodeMyPageState extends State<QRCodeMyPage> {
           tmp[value.result!.data![i].name!] = value.result!.data![i].id!;
           listParking.addAll(tmp);
         }
-        name=listParking.keys.first;
-        id =listParking.values.first;      
+        name = listParking.keys.first;
+        id = listParking.values.first;
       });
     });
   }
@@ -100,10 +100,10 @@ class _QRCodeMyPageState extends State<QRCodeMyPage> {
                               setState(() {
                                 name = newValue!;
                                 listParking.forEach((key, value) {
-                                  if (key.contains(key)) {
+                                  if (name.contains(key)) {
                                     id = value;
                                   }
-                                }); 
+                                });
                               });
                             },
                             items: listParking.keys.map((value) {
